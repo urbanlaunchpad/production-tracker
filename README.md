@@ -7,6 +7,6 @@ Design and development of Production Tracker application for improving garment i
 
 | Load screen   | Login         | Home  |
 | ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
+| ![Load screen](https://github.com/urbanlaunchpad/production-tracker/blob/master/assets/img/NMG_production-tracker_wireframes-01.png?raw=true)     | right-aligned | $1600 |
 | col 2 is      | centered      |   $12 |
 | zebra stripes | are neat      |    $1 |

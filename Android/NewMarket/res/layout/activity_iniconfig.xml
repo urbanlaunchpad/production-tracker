@@ -19,8 +19,6 @@
         android:gravity="top"
         android:padding="0dp" >
 
-
-
         <TableRow
             android:id="@+id/usernameRow"
             android:layout_width="wrap_content"
@@ -54,7 +52,11 @@
                 android:gravity="center_vertical"
                 android:paddingRight="30dp"
                 android:src="@drawable/add_user" />
+
+            <TableRow>
+            </TableRow>
         </TableRow>
+
 
 
         <TableRow
@@ -92,7 +94,7 @@
         </TableRow>
 
         <RelativeLayout
-            android:id = "@+id/iniconfig_navbar"
+            android:id="@+id/iniconfig_navbar"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent" >
 

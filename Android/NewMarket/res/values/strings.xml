@@ -4,5 +4,9 @@
     <string name="app_name">NewMarket</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_run">RunActivity</string>
+    <string name="add_run">Add a Run</string>
+    <string name="enter_run_name">Enter Run Name</string>
+    <string name="save">Save</string>
 
 </resources>

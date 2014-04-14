@@ -1,4 +1,4 @@
-package org.urbanlaunchpad.flocktracker;
+/*package org.urbanlaunchpad.flocktracker;
 
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -40,13 +40,13 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
     public static final int REQUEST_PERMISSIONS = 2;
     public static final String FUSION_TABLE_SCOPE = "https://www.googleapis.com/auth/fusiontables";
     public static final String API_KEY = "AIzaSyB4Nn1k2sML-0aBN2Fk3qOXLF-4zlaNwmg";
-    /**
+    *//**
      * Global instance of the HTTP transport.
-     */
+     *//*
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-    /**
+    *//**
      * Global instance of the JSON factory.
-     */
+     *//*
     private static final JsonFactory JSON_FACTORY = new JacksonFactory();
     public static String username = "";
     // by default.
@@ -252,9 +252,9 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
         return true;
     }
 
-    /*
+    
      * Survey getting helper functions
-     */
+     
 
     public void parseSurvey() {
         ProgressBar loading = new ProgressBar(this);
@@ -343,9 +343,9 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
         }
     }
 
-    /*
+    
      * Username selection helper functions
-     */
+     
 
     private void DebuggingIsOn(boolean deb) {
         // Debug mode, passes project without internet connection.
@@ -481,3 +481,4 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
     }
 
 }
+*/

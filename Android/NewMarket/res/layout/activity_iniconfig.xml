@@ -10,136 +10,136 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Iniconfig" >
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="0dp"
-        android:layout_weight="5"
-        android:background="@color/blue_background"
-        android:gravity="top"
-        android:padding="0dp" >
+<!--     <TableLayout -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="0dp" -->
+<!--         android:layout_margin="0dp" -->
+<!--         android:layout_weight="5" -->
+<!--         android:background="@color/blue_background" -->
+<!--         android:gravity="top" -->
+<!--         android:padding="0dp" > -->
 
-        <TextView
-            android:id="@+id/usernameTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingTop="30dp"
-            android:text="@string/usernameTitle"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+<!--         <TextView -->
+<!--             android:id="@+id/usernameTitle" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:gravity="left" -->
+<!--             android:paddingBottom="10dp" -->
+<!--             android:paddingLeft="30dp" -->
+<!--             android:paddingTop="30dp" -->
+<!--             android:text="@string/usernameTitle" -->
+<!--             android:textColor="#fff" -->
+<!--             android:textSize="20sp" /> -->
 
-        <TableRow
-            android:id="@+id/usernameRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:padding="0sp" >
+<!--         <TableRow -->
+<!--             android:id="@+id/usernameRow" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:gravity="left" -->
+<!--             android:padding="0sp" > -->
 
-            <TextView
-                android:id="@+id/usernameText"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="2"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center_vertical"
-                android:paddingBottom="30dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingTop="10dp"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="@string/usernameText"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+<!--             <TextView -->
+<!--                 android:id="@+id/usernameText" -->
+<!--                 android:layout_width="0dp" -->
+<!--                 android:layout_height="100dp" -->
+<!--                 android:layout_weight="2" -->
+<!--                 android:fontFamily="sans-serif-light" -->
+<!--                 android:gravity="center_vertical" -->
+<!--                 android:paddingBottom="30dp" -->
+<!--                 android:paddingLeft="30dp" -->
+<!--                 android:paddingRight="30dp" -->
+<!--                 android:paddingTop="10dp" -->
+<!--                 android:scrollHorizontally="true" -->
+<!--                 android:singleLine="true" -->
+<!--                 android:text="@string/usernameText" -->
+<!--                 android:textColor="#fff" -->
+<!--                 android:textSize="20sp" /> -->
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/usernameButtonDesc"
-                android:gravity="center_vertical"
-                android:paddingRight="30dp"
-                android:src="@drawable/add_user" />
-        </TableRow>
+<!--             <ImageView -->
+<!--                 android:id="@+id/imageView1" -->
+<!--                 android:layout_width="0dp" -->
+<!--                 android:layout_height="fill_parent" -->
+<!--                 android:layout_weight="1" -->
+<!--                 android:contentDescription="@string/usernameButtonDesc" -->
+<!--                 android:gravity="center_vertical" -->
+<!--                 android:paddingRight="30dp" -->
+<!--                 android:src="@drawable/add_user" /> -->
+<!--         </TableRow> -->
 
-        <TextView
-            android:id="@+id/projectNameTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:paddingBottom="10dp"
-            android:paddingLeft="30dp"
-            android:paddingTop="30dp"
-            android:text="@string/projectNameTitle"
-            android:textColor="#fff"
-            android:textSize="20sp" />
+<!--         <TextView -->
+<!--             android:id="@+id/projectNameTitle" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:gravity="left" -->
+<!--             android:paddingBottom="10dp" -->
+<!--             android:paddingLeft="30dp" -->
+<!--             android:paddingTop="30dp" -->
+<!--             android:text="@string/projectNameTitle" -->
+<!--             android:textColor="#fff" -->
+<!--             android:textSize="20sp" /> -->
 
-        <TableRow
-            android:id="@+id/projectNameRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:padding="0sp" >
+<!--         <TableRow -->
+<!--             android:id="@+id/projectNameRow" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="wrap_content" -->
+<!--             android:gravity="left" -->
+<!--             android:padding="0sp" > -->
 
-            <TextView
-                android:id="@+id/projectNameText"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="2"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center_vertical"
-                android:paddingBottom="30dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:paddingTop="10dp"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="@string/projectNameText"
-                android:textColor="#fff"
-                android:textSize="20sp" />
+<!--             <TextView -->
+<!--                 android:id="@+id/projectNameText" -->
+<!--                 android:layout_width="0dp" -->
+<!--                 android:layout_height="100dp" -->
+<!--                 android:layout_weight="2" -->
+<!--                 android:fontFamily="sans-serif-light" -->
+<!--                 android:gravity="center_vertical" -->
+<!--                 android:paddingBottom="30dp" -->
+<!--                 android:paddingLeft="30dp" -->
+<!--                 android:paddingRight="30dp" -->
+<!--                 android:paddingTop="10dp" -->
+<!--                 android:scrollHorizontally="true" -->
+<!--                 android:singleLine="true" -->
+<!--                 android:text="@string/projectNameText" -->
+<!--                 android:textColor="#fff" -->
+<!--                 android:textSize="20sp" /> -->
 
-            <ImageView
-                android:id="@+id/projectNameButton"
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/projectNameButtonDesc"
-                android:paddingRight="30dp"
-                android:src="@drawable/add_project" />
-        </TableRow>
+<!--             <ImageView -->
+<!--                 android:id="@+id/projectNameButton" -->
+<!--                 android:layout_width="0dp" -->
+<!--                 android:layout_height="fill_parent" -->
+<!--                 android:layout_weight="1" -->
+<!--                 android:contentDescription="@string/projectNameButtonDesc" -->
+<!--                 android:paddingRight="30dp" -->
+<!--                 android:src="@drawable/add_project" /> -->
+<!--         </TableRow> -->
 
-        <RelativeLayout
-            android:id = "@+id/iniconfig_navbar"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent" >
+<!--         <RelativeLayout -->
+<!--             android:id = "@+id/iniconfig_navbar" -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="fill_parent" > -->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:paddingBottom="20dp"
-                android:paddingRight="10dp" >
+<!--             <TableRow -->
+<!--                 android:layout_width="match_parent" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_alignParentBottom="true" -->
+<!--                 android:paddingBottom="20dp" -->
+<!--                 android:paddingRight="10dp" > -->
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+<!--                 <Space -->
+<!--                     android:layout_width="0dp" -->
+<!--                     android:layout_height="wrap_content" -->
+<!--                     android:layout_weight="2" /> -->
 
-                <ImageView
-                    android:id="@+id/bcontinue"
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/continue_desc"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:src="@drawable/right_arrow" />
-            </TableRow>
-        </RelativeLayout>
-    </TableLayout>
+<!--                 <ImageView -->
+<!--                     android:id="@+id/bcontinue" -->
+<!--                     android:layout_width="0dp" -->
+<!--                     android:layout_height="70dp" -->
+<!--                     android:layout_weight="1" -->
+<!--                     android:contentDescription="@string/continue_desc" -->
+<!--                     android:paddingLeft="30dp" -->
+<!--                     android:paddingRight="30dp" -->
+<!--                     android:src="@drawable/right_arrow" /> -->
+<!--             </TableRow> -->
+<!--         </RelativeLayout> -->
+<!--     </TableLayout> -->
 
 </LinearLayout>

@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:21
+-keep class com.urbanlaunchpad.newmarket.IniconfigActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:16
+-keep class com.urbanlaunchpad.newmarket.MainActivity { <init>(...); }
+

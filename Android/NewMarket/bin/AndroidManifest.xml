@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
     <application
@@ -16,12 +16,18 @@
         <activity
             android:name="com.urbanlaunchpad.newmarket.MainActivity"
             android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name="com.urbanlaunchpad.newmarket.IniconfigActivity"
+            android:label="@string/initial_configuration" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

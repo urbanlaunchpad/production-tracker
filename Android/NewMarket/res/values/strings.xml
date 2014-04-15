@@ -4,7 +4,7 @@
     <!-- Colors -->
     <color name="blue_background">#29ABE2</color>
 
-    <string name="app_name">NewMarket</string>
+    <string name="app_name">Production Tracker</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
@@ -16,6 +16,8 @@
     <string name="username">Username</string>
     <string name="usernameText">Select user</string>
     <string name="continue_desc">Continue</string>
+    <string name="big_logo_desc">Production Tracker logo</string>
+    
 
     <!-- Probably will be used -->
     <string name="invalid_user_project">invalid_user_project</string>

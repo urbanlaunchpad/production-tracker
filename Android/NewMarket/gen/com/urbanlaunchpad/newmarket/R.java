@@ -225,27 +225,29 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f02001d;
         public static final int ic_plusone_standard_off_client=0x7f02001e;
         public static final int ic_plusone_tall_off_client=0x7f02001f;
+        public static final int logo_big=0x7f020020;
     }
     public static final class id {
-        public static final int action_add=0x7f050011;
-        public static final int action_settings=0x7f050012;
-        public static final int bcontinue=0x7f05000c;
-        public static final int btnSave=0x7f05000f;
-        public static final int etRunName=0x7f05000e;
+        public static final int action_add=0x7f050012;
+        public static final int action_settings=0x7f050013;
+        public static final int bcontinue=0x7f05000d;
+        public static final int big_Logo=0x7f050005;
+        public static final int btnSave=0x7f050010;
+        public static final int etRunName=0x7f05000f;
         public static final int hybrid=0x7f050004;
-        public static final int imageView1=0x7f050007;
-        public static final int iniconfig_navbar=0x7f05000b;
-        public static final int lvRuns=0x7f05000d;
+        public static final int imageView1=0x7f050008;
+        public static final int iniconfig_navbar=0x7f05000c;
+        public static final int lvRuns=0x7f05000e;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
-        public static final int projectNameButton=0x7f05000a;
-        public static final int projectNameRow=0x7f050008;
-        public static final int projectNameText=0x7f050009;
+        public static final int projectNameButton=0x7f05000b;
+        public static final int projectNameRow=0x7f050009;
+        public static final int projectNameText=0x7f05000a;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int tvRunName=0x7f050010;
-        public static final int usernameRow=0x7f050005;
-        public static final int usernameText=0x7f050006;
+        public static final int tvRunName=0x7f050011;
+        public static final int usernameRow=0x7f050006;
+        public static final int usernameText=0x7f050007;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
@@ -287,7 +289,8 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f060014;
-        public static final int cancel=0x7f06002c;
+        public static final int big_logo_desc=0x7f060026;
+        public static final int cancel=0x7f06002d;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -365,21 +368,21 @@ containing a value of this type.
         public static final int initial_configuration=0x7f060022;
         /**  Probably will be used 
          */
-        public static final int invalid_user_project=0x7f060026;
+        public static final int invalid_user_project=0x7f060027;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
-        public static final int no_survey_obtained=0x7f060029;
-        public static final int ok=0x7f06002b;
-        public static final int projectName=0x7f06002e;
-        public static final int projectNameButtonDesc=0x7f06002f;
-        public static final int projectNameText=0x7f06002d;
+        public static final int no_survey_obtained=0x7f06002a;
+        public static final int ok=0x7f06002c;
+        public static final int projectName=0x7f06002f;
+        public static final int projectNameButtonDesc=0x7f060030;
+        public static final int projectNameText=0x7f06002e;
         public static final int save=0x7f060021;
-        public static final int select_project=0x7f06002a;
-        public static final int select_user_first=0x7f060027;
+        public static final int select_project=0x7f06002b;
+        public static final int select_user_first=0x7f060028;
         /**  Probably wont be used 
          */
-        public static final int survey_parsed=0x7f060028;
+        public static final int survey_parsed=0x7f060029;
         public static final int title_activity_run=0x7f06001e;
         public static final int username=0x7f060023;
         public static final int usernameText=0x7f060024;

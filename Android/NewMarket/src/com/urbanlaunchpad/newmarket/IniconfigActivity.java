@@ -41,7 +41,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	public static final int REQUEST_ACCOUNT_PICKER = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	public static final String FUSION_TABLE_SCOPE = "https://www.googleapis.com/auth/fusiontables";
-	public static final String API_KEY = "AIzaSyB4Nn1k2sML-0aBN2Fk3qOXLF-4zlaNwmg";
+	public static final String API_KEY = "AIzaSyDaKmbcfkO82DeRHgJA4Mwwt1mBJ9_Hrx0";
 	
 	// Global instance of the HTTP transport.
 	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
@@ -215,12 +215,12 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 				return;
 			}
 
-			// Go to survey
-			// Intent i = new Intent(getApplicationContext(),
-			// SurveyorActivity.class);
-			// i.putExtra("jsonsurvey", jsurv.toString());
-			// i.putExtra("username", username);
-			// startActivity(i);
+			// Go to runs activity
+			 Intent i = new Intent(getApplicationContext(),
+			 RunActivity.class);
+			 i.putExtra("jsonsurvey", jsurv.toString());
+			 i.putExtra("username", username);
+			 startActivity(i);
 		}
 	}
 

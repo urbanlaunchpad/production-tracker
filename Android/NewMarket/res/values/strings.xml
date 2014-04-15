@@ -3,6 +3,8 @@
 
     <!-- Colors -->
     <color name="blue_background">#29ABE2</color>
+   	<color name="dark_text">#000000</color> 
+   	<color name="light_text_background">#FFFFFF</color>
 
     <string name="app_name">Production Tracker</string>
     <string name="action_settings">Settings</string>

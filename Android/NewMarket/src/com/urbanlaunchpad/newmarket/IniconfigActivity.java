@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,25 +12,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.RelativeLayout.LayoutParams;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.fusiontables.Fusiontables;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 
 import org.apache.http.client.ClientProtocolException;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -42,13 +32,10 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	public static final int REQUEST_PERMISSIONS = 2;
 	public static final String FUSION_TABLE_SCOPE = "https://www.googleapis.com/auth/fusiontables";
 	public static final String API_KEY = "AIzaSyDaKmbcfkO82DeRHgJA4Mwwt1mBJ9_Hrx0";
-	
-	// Global instance of the HTTP transport.
-	private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+
 
 	// Global instance of the JSON factory.
 
-	private static final JsonFactory JSON_FACTORY = new JacksonFactory();
 	public static String username = "";
 	// by default.
 	public static GoogleAccountCredential credential;
@@ -103,17 +90,15 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	@Override
 	public void onClick(View view) {
 		Integer id = view.getId();
-
 		if (id == R.id.login_button) {
 			// Google credentials
 			startActivityForResult(credential.newChooseAccountIntent(),
 					REQUEST_ACCOUNT_PICKER);
-		}  else if (id == R.id.bcontinue) {
+		} else if (id == R.id.bcontinue) {
 			// Go to runs activity
-			 Intent i = new Intent(getApplicationContext(),
-			 RunActivity.class);
-			 i.putExtra("username", username);
-			 startActivity(i);
+			Intent i = new Intent(getApplicationContext(), RunActivity.class);
+			i.putExtra("username", username);
+			startActivity(i);
 		}
 	}
 
@@ -138,8 +123,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		return true;
 	}
 
-
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -151,9 +134,9 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 				username = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 				credential.setSelectedAccountName(username);
 
-				fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
-						JSON_FACTORY, credential)
-						.setApplicationName("NewMarket").build();
+//				fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
+//						JSON_FACTORY, credential).setApplicationName(
+//						"NewMarket").build();
 
 				// update our username field
 				messageHandler.sendEmptyMessage(EVENT_TYPE.GOT_USERNAME

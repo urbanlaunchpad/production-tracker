@@ -228,10 +228,15 @@ containing a value of this type.
         public static final int ic_plusone_standard_off_client=0x7f02001e;
         public static final int ic_plusone_tall_off_client=0x7f02001f;
         public static final int logo_big=0x7f020020;
+        public static final int mfclogo=0x7f020021;
+        public static final int mitlogo=0x7f020022;
+        public static final int ulmxlogo=0x7f020023;
+        public static final int welcome=0x7f020024;
     }
     public static final class id {
-        public static final int action_add=0x7f05000f;
-        public static final int action_settings=0x7f050010;
+        public static final int action_add=0x7f050013;
+        public static final int action_settings=0x7f050014;
+        public static final int app_big_icon_button=0x7f05000e;
         public static final int app_name=0x7f050006;
         public static final int bcontinue=0x7f05000a;
         public static final int big_Logo=0x7f050005;
@@ -241,11 +246,14 @@ containing a value of this type.
         public static final int iniconfig_navbar=0x7f050009;
         public static final int login_button=0x7f050008;
         public static final int lvRuns=0x7f05000b;
+        public static final int mit_button=0x7f050010;
+        public static final int mobility_futures_colaborative_button=0x7f05000f;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int tvRunName=0x7f05000e;
+        public static final int tvRunName=0x7f050012;
+        public static final int urban_launchpad_button=0x7f050011;
         public static final int usernameText=0x7f050007;
     }
     public static final class integer {
@@ -255,11 +263,13 @@ containing a value of this type.
         public static final int activity_iniconfig=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_run=0x7f030002;
-        public static final int run_item=0x7f030003;
+        public static final int activity_welcomes=0x7f030003;
+        public static final int run_item=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f0a0000;
         public static final int run=0x7f0a0001;
+        public static final int welcomes=0x7f0a0002;
     }
     public static final class string {
         public static final int action_settings=0x7f06001c;
@@ -371,6 +381,10 @@ containing a value of this type.
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f06001a;
+        public static final int mit_desc=0x7f060032;
+        /**  Will have to be changed 
+         */
+        public static final int mobility_futures_colaborative_desc=0x7f060031;
         public static final int no_survey_obtained=0x7f06002a;
         public static final int ok=0x7f06002c;
         public static final int projectName=0x7f06002f;
@@ -383,6 +397,7 @@ containing a value of this type.
          */
         public static final int survey_parsed=0x7f060029;
         public static final int title_activity_run=0x7f06001e;
+        public static final int urban_launchpad_desc=0x7f060033;
         public static final int username=0x7f060023;
         public static final int usernameText=0x7f060024;
     }
@@ -390,11 +405,13 @@ containing a value of this type.
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
         
 
         Base application theme for API 11+. This theme completely replaces
@@ -413,6 +430,8 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090001;
+        public static final int No_background=0x7f090003;
+        public static final int welcome_Theme=0x7f090002;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

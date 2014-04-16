@@ -1,11 +1,14 @@
-# view AndroidManifest.xml #generated:26
+# view AndroidManifest.xml #generated:38
 -keep class com.urbanlaunchpad.newmarket.IniconfigActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:22
+# view AndroidManifest.xml #generated:33
 -keep class com.urbanlaunchpad.newmarket.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:35
+# view AndroidManifest.xml #generated:43
 -keep class com.urbanlaunchpad.newmarket.RunActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:22
+-keep class com.urbanlaunchpad.newmarket.WelcomeActivity { <init>(...); }
 
 # onClick res/layout/activity_run.xml #generated:21
 -keepclassmembers class * { *** saveRun(...); }

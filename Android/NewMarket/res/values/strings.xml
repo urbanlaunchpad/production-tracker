@@ -34,5 +34,10 @@
     <string name="projectNameText">Select project</string>
     <string name="projectName">Project name</string>
     <string name="projectNameButtonDesc">Project name</string>
+    
+    <!-- Will have to be changed -->
+    <string name="mobility_futures_colaborative_desc">mobility_futures_colaborative_desc</string>
+    <string name="mit_desc">mit_desc</string>
+    <string name="urban_launchpad_desc">urban_launchpad_desc</string>
 
 </resources>

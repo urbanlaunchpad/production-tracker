@@ -55,10 +55,8 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	public static Fusiontables fusiontables;
 	public static SharedPreferences prefs;
 	TextView usernameField;
-	TextView projectNameField;
 	ImageView cont;
 	AutoCompleteTextView input;
-	String projectName = "";
 	String jsonsurveystring;
 	JSONObject jsurv = null;
 	@SuppressLint("HandlerLeak")
@@ -68,14 +66,12 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 			if (msg.what == EVENT_TYPE.GOT_USERNAME.ordinal()) {
 				// have input a name. update it on interface
 				usernameField.setText(username);
-			} else if (msg.what == EVENT_TYPE.GOT_PROJECT_NAME.ordinal()) {
-				// have input a project name. update it on interface
-				projectNameField.setText(projectName);
+				cont.setVisibility(View.VISIBLE);
+				findViewById(R.id.bcontinue).setClickable(true);
 			} else if (msg.what == EVENT_TYPE.PARSED_CORRECTLY.ordinal()) {
 				RelativeLayout navBar = (RelativeLayout) findViewById(R.id.iniconfig_navbar);
 				navBar.removeViewAt(0);
-				findViewById(R.id.bcontinue).setClickable(true);
-
+				
 				// got survey!
 				Toast toast = Toast.makeText(getApplicationContext(),
 						R.string.survey_parsed, Toast.LENGTH_SHORT);
@@ -90,14 +86,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 						R.string.no_survey_obtained, Toast.LENGTH_SHORT);
 				toast.show();
 				jsurv = null;
-			} else if (msg.what == EVENT_TYPE.INPUT_NAME.ordinal()) {
-				input.setText(projectName);
-				// want to display alert to get project name
-				alertDialog.show();
-				input.requestFocus();
-				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-			} else {
+			}  else {
 				Log.e("Survey Parser", "Error parsing survey");
 			}
 		}
@@ -113,7 +102,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 				Context.MODE_PRIVATE);
 		// initialize fields
 		usernameField = (TextView) findViewById(R.id.usernameText);
-		projectNameField = (TextView) findViewById(R.id.projectNameText);
 
 		// initialize dialog for inputting project name
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -132,7 +120,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
-					onPositiveButtonClicked();
 				}
 			});
 		}
@@ -142,7 +129,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		alert.setPositiveButton(R.string.ok,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
-						onPositiveButtonClicked();
 					}
 				});
 
@@ -158,11 +144,10 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		alertDialog = alert.create();
 
 		// set listeners for rows and disable continue button
-		View projectNameSelectRow = findViewById(R.id.projectNameRow);
-		View usernameSelectRow = findViewById(R.id.usernameRow);
+		View loginButtonView = findViewById(R.id.login_button);
 		cont = (ImageView) findViewById(R.id.bcontinue);
-		usernameSelectRow.setOnClickListener(this);
-		projectNameSelectRow.setOnClickListener(this);
+		cont.setVisibility(View.GONE);
+		loginButtonView.setOnClickListener(this);
 		cont.setOnClickListener(this);
 
 		// get credential with scopes
@@ -171,43 +156,15 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 
 	}
 
-	public void onPositiveButtonClicked() {
-		// save the project name
-		projectName = input.getText().toString().trim();
-		prefs.edit().putString("lastProject", projectName).commit();
-
-		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-		alertDialog.dismiss();
-
-		if (!projectName.isEmpty()) {
-			// update our interface with project name
-			messageHandler.sendEmptyMessage(EVENT_TYPE.GOT_PROJECT_NAME
-					.ordinal());
-
-			parseSurvey();
-		}
-	}
-
 	@Override
 	public void onClick(View view) {
 		Integer id = view.getId();
 
-		if (id == R.id.usernameRow) {
+		if (id == R.id.login_button) {
 			// Google credentials
 			startActivityForResult(credential.newChooseAccountIntent(),
 					REQUEST_ACCOUNT_PICKER);
-		} else if (id == R.id.projectNameRow) {
-			if (username.isEmpty()) {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						R.string.select_user_first, Toast.LENGTH_SHORT);
-				toast.show();
-				return;
-			}
-
-			// Show the popup dialog to get the project name
-			messageHandler.sendEmptyMessage(EVENT_TYPE.INPUT_NAME.ordinal());
-		} else if (id == R.id.bcontinue) {
+		}  else if (id == R.id.bcontinue) {
 			if (jsurv == null) {
 				Toast toast = Toast.makeText(getApplicationContext(),
 						R.string.invalid_user_project, Toast.LENGTH_SHORT);
@@ -245,63 +202,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		return true;
 	}
 
-	// Survey getting helper functions
 
-	public void parseSurvey() {
-		ProgressBar loading = new ProgressBar(this);
-		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-		loading.setLayoutParams(params);
-		RelativeLayout navBar = (RelativeLayout) findViewById(R.id.iniconfig_navbar);
-		navBar.addView(loading, 0);
-		findViewById(R.id.bcontinue).setClickable(false);
-		// get and parse survey
-		new Thread(new Runnable() {
-			public void run() {
-				try {
-					if (!getSurvey(projectName)) {
-						return;
-					}
-
-					try {
-						jsurv = new JSONObject(jsonsurveystring);
-						messageHandler
-								.sendEmptyMessage(EVENT_TYPE.PARSED_CORRECTLY
-										.ordinal());
-					} catch (JSONException e) {
-						Log.e("JSON Parser",
-								"Error parsing data " + e.toString());
-						messageHandler
-								.sendEmptyMessage(EVENT_TYPE.PARSED_INCORRECTLY
-										.ordinal());
-					}
-				} catch (ClientProtocolException e1) {
-					e1.printStackTrace();
-				} catch (UserRecoverableAuthIOException e) {
-					startActivityForResult(e.getIntent(), REQUEST_PERMISSIONS);
-				} catch (IOException e1) {
-					if (projectName.equals(prefs.getString("lastProject", ""))) {
-						try {
-							jsurv = new JSONObject(prefs.getString(
-									"jsonsurveystring", ""));
-							messageHandler
-									.sendEmptyMessage(EVENT_TYPE.PARSED_CORRECTLY
-											.ordinal());
-						} catch (JSONException e) {
-							Log.e("JSON Parser",
-									"Error parsing data " + e.toString());
-							messageHandler
-									.sendEmptyMessage(EVENT_TYPE.PARSED_INCORRECTLY
-											.ordinal());
-						}
-					}
-
-					e1.printStackTrace();
-				}
-			}
-		}).start();
-	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -325,7 +226,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 			break;
 		case REQUEST_PERMISSIONS:
 			if (resultCode == RESULT_OK) {
-				parseSurvey();
+				// TODO Activate continue button.
 			} else {
 				startActivityForResult(credential.newChooseAccountIntent(),
 						REQUEST_ACCOUNT_PICKER);
@@ -337,7 +238,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	// Username selection helper functions
 
 	private enum EVENT_TYPE {
-		GOT_USERNAME, GOT_PROJECT_NAME, PARSED_CORRECTLY, PARSED_INCORRECTLY, INPUT_NAME
+		GOT_USERNAME, PARSED_CORRECTLY, PARSED_INCORRECTLY, INPUT_NAME
 	}
 
 }

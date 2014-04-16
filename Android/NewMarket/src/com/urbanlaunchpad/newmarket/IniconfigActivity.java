@@ -58,7 +58,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	ImageView cont;
 	AutoCompleteTextView input;
 	String jsonsurveystring;
-	JSONObject jsurv = null;
 	@SuppressLint("HandlerLeak")
 	private Handler messageHandler = new Handler() {
 
@@ -68,25 +67,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 				usernameField.setText(username);
 				cont.setVisibility(View.VISIBLE);
 				findViewById(R.id.bcontinue).setClickable(true);
-			} else if (msg.what == EVENT_TYPE.PARSED_CORRECTLY.ordinal()) {
-				RelativeLayout navBar = (RelativeLayout) findViewById(R.id.iniconfig_navbar);
-				navBar.removeViewAt(0);
-				
-				// got survey!
-				Toast toast = Toast.makeText(getApplicationContext(),
-						R.string.survey_parsed, Toast.LENGTH_SHORT);
-				toast.show();
-			} else if (msg.what == EVENT_TYPE.PARSED_INCORRECTLY.ordinal()) {
-				RelativeLayout navBar = (RelativeLayout) findViewById(R.id.iniconfig_navbar);
-				navBar.removeViewAt(0);
-				findViewById(R.id.bcontinue).setClickable(true);
-
-				// got bad/no survey!
-				Toast toast = Toast.makeText(getApplicationContext(),
-						R.string.no_survey_obtained, Toast.LENGTH_SHORT);
-				toast.show();
-				jsurv = null;
-			}  else {
+			} else {
 				Log.e("Survey Parser", "Error parsing survey");
 			}
 		}
@@ -98,52 +79,16 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_iniconfig);
 
-		prefs = this.getSharedPreferences("org.urbanlaunchpad.flocktracker",
+		prefs = this.getSharedPreferences("com.urbanlaunchpad.newmarket",
 				Context.MODE_PRIVATE);
 		// initialize fields
 		usernameField = (TextView) findViewById(R.id.usernameText);
 
-		// initialize dialog for inputting project name
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle(R.string.select_project);
-
-		input = new AutoCompleteTextView(this);
-
-		if (prefs.contains("lastProject")) {
-			// Create the adapter and set it to the AutoCompleteTextView
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1,
-					new String[] { prefs.getString("lastProject", "") });
-			input.setThreshold(1);
-			input.setAdapter(adapter);
-			input.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-				}
-			});
+		// TODO handle saved username preferences.
+		if (prefs.contains("username")) {
 		}
-		alert.setView(input);
 
-		// set listener for ok when user inputs project name
-		alert.setPositiveButton(R.string.ok,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-					}
-				});
-
-		alert.setNegativeButton(R.string.cancel,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-						imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-						dialog.dismiss();
-					}
-				});
-
-		alertDialog = alert.create();
-
-		// set listeners for rows and disable continue button
+		// set listeners and disable continue button
 		View loginButtonView = findViewById(R.id.login_button);
 		cont = (ImageView) findViewById(R.id.bcontinue);
 		cont.setVisibility(View.GONE);
@@ -153,7 +98,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		// get credential with scopes
 		credential = GoogleAccountCredential.usingOAuth2(this,
 				Arrays.asList(FUSION_TABLE_SCOPE, DriveScopes.DRIVE));
-
 	}
 
 	@Override
@@ -165,17 +109,9 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 			startActivityForResult(credential.newChooseAccountIntent(),
 					REQUEST_ACCOUNT_PICKER);
 		}  else if (id == R.id.bcontinue) {
-			if (jsurv == null) {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						R.string.invalid_user_project, Toast.LENGTH_SHORT);
-				toast.show();
-				return;
-			}
-
 			// Go to runs activity
 			 Intent i = new Intent(getApplicationContext(),
 			 RunActivity.class);
-			 i.putExtra("jsonsurvey", jsurv.toString());
 			 i.putExtra("username", username);
 			 startActivity(i);
 		}
@@ -217,7 +153,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 
 				fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
 						JSON_FACTORY, credential)
-						.setApplicationName("UXMexico").build();
+						.setApplicationName("NewMarket").build();
 
 				// update our username field
 				messageHandler.sendEmptyMessage(EVENT_TYPE.GOT_USERNAME
@@ -226,7 +162,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 			break;
 		case REQUEST_PERMISSIONS:
 			if (resultCode == RESULT_OK) {
-				// TODO Activate continue button.
 			} else {
 				startActivityForResult(credential.newChooseAccountIntent(),
 						REQUEST_ACCOUNT_PICKER);
@@ -238,7 +173,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	// Username selection helper functions
 
 	private enum EVENT_TYPE {
-		GOT_USERNAME, PARSED_CORRECTLY, PARSED_INCORRECTLY, INPUT_NAME
+		GOT_USERNAME
 	}
 
 }

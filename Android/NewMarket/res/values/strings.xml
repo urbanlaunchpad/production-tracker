@@ -12,7 +12,7 @@
     
     <string name="title_activity_run">RunActivity</string>
     <string name="add_run">Add a Run</string>
-    <string name="enter_run_name">Enter Run Name</string>
+    <string name="enter_textile_name">Enter Textile Name</string>
     <string name="save">Save</string>
     <string name="initial_configuration">Log In</string>
     <string name="username">Username</string>
@@ -39,5 +39,6 @@
     <string name="mobility_futures_colaborative_desc">mobility_futures_colaborative_desc</string>
     <string name="mit_desc">mit_desc</string>
     <string name="urban_launchpad_desc">urban_launchpad_desc</string>
+    <string name="textile_description">Textile Image</string>
 
 </resources>

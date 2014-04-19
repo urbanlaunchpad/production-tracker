@@ -10,14 +10,14 @@ import android.widget.EditText;
 import com.urbanlaunchpad.newmarket.model.Run;
 
 public class RunActivity extends Activity {
-	private EditText etRunName;
+	private EditText etTextileName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_run);
 		
-		etRunName = (EditText) findViewById(R.id.etRunName);
+		etTextileName = (EditText) findViewById(R.id.etTextileName);
  	}
 
 	@Override
@@ -32,8 +32,8 @@ public class RunActivity extends Activity {
 	 * Called when a user chooses the 'save' button. 
 	 * */
 	public void saveRun(View view) {
-		Run run = new Run();
-		run.setName(etRunName.getText().toString());
+		String textile = etTextileName.getText().toString();
+		Run run = new Run(textile, 1, "Finishing"); // put random values for now. change later.
 		Intent data = new Intent();
 		data.putExtra("run", run);
 		setResult(RESULT_OK, data);

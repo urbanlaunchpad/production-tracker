@@ -227,35 +227,39 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f02001d;
         public static final int ic_plusone_standard_off_client=0x7f02001e;
         public static final int ic_plusone_tall_off_client=0x7f02001f;
-        public static final int logo_big=0x7f020020;
-        public static final int mfclogo=0x7f020021;
-        public static final int mitlogo=0x7f020022;
-        public static final int ulmxlogo=0x7f020023;
-        public static final int welcome=0x7f020024;
+        public static final int kotwali=0x7f020020;
+        public static final int logo_big=0x7f020021;
+        public static final int mfclogo=0x7f020022;
+        public static final int mirpur=0x7f020023;
+        public static final int mitlogo=0x7f020024;
+        public static final int ulmxlogo=0x7f020025;
+        public static final int uttara=0x7f020026;
+        public static final int welcome=0x7f020027;
     }
     public static final class id {
-        public static final int RunNameButton=0x7f05000e;
-        public static final int action_add=0x7f050015;
-        public static final int action_settings=0x7f050016;
-        public static final int app_big_icon_button=0x7f050010;
+        public static final int action_add=0x7f050016;
+        public static final int action_settings=0x7f050017;
+        public static final int app_big_icon_button=0x7f05000e;
         public static final int app_name=0x7f050006;
         public static final int bcontinue=0x7f05000a;
         public static final int big_Logo=0x7f050005;
-        public static final int btnSave=0x7f05000d;
-        public static final int etRunName=0x7f05000c;
+        public static final int btnSave=0x7f05000c;
+        public static final int etTextileName=0x7f05000d;
         public static final int hybrid=0x7f050004;
         public static final int iniconfig_navbar=0x7f050009;
-        public static final int loadingPanel=0x7f05000f;
+        public static final int ivTextile=0x7f050012;
         public static final int login_button=0x7f050008;
         public static final int lvRuns=0x7f05000b;
-        public static final int mit_button=0x7f050012;
-        public static final int mobility_futures_colaborative_button=0x7f050011;
+        public static final int mit_button=0x7f050010;
+        public static final int mobility_futures_colaborative_button=0x7f05000f;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int tvRunName=0x7f050014;
-        public static final int urban_launchpad_button=0x7f050013;
+        public static final int tvRun=0x7f050013;
+        public static final int tvStep=0x7f050015;
+        public static final int tvTextileName=0x7f050014;
+        public static final int urban_launchpad_button=0x7f050011;
         public static final int usernameText=0x7f050007;
     }
     public static final class integer {
@@ -374,7 +378,7 @@ containing a value of this type.
          */
         public static final int common_signin_button_text_long=0x7f060013;
         public static final int continue_desc=0x7f060025;
-        public static final int enter_run_name=0x7f060020;
+        public static final int enter_textile_name=0x7f060020;
         public static final int hello_world=0x7f06001d;
         public static final int initial_configuration=0x7f060022;
         /**  Probably will be used 
@@ -398,6 +402,7 @@ containing a value of this type.
         /**  Probably wont be used 
          */
         public static final int survey_parsed=0x7f060029;
+        public static final int textile_description=0x7f060034;
         public static final int title_activity_run=0x7f06001e;
         public static final int urban_launchpad_desc=0x7f060033;
         public static final int username=0x7f060023;

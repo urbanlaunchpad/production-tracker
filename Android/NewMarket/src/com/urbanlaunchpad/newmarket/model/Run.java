@@ -9,13 +9,25 @@ public class Run implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7457601238102982305L;
-	private String name;
-
-	public String getName() {
-		return name;
+	private String textile;
+	private int run;
+	private String step;	
+	
+	public Run(String textile, int run, String step) {
+		this.textile = textile;
+		this.run = run;
+		this.step = step;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getTextile() {
+		return textile;
+	}
+	
+	public int getRun() {
+		return run;
+	}
+	
+	public String getStep() {
+		return step;
 	}
 }

@@ -96,7 +96,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 					REQUEST_ACCOUNT_PICKER);
 		} else if (id == R.id.bcontinue) {
 			// Go to runs activity
-			Intent i = new Intent(getApplicationContext(), RunActivity.class);
+			Intent i = new Intent(getApplicationContext(), RunsActivity.class);
 			i.putExtra("username", username);
 			startActivity(i);
 		}

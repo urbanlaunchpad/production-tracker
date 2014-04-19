@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.urbanlaunchpad.newmarket.model.Run;
@@ -28,6 +31,17 @@ public class RunsActivity extends Activity {
         runsAdapter = new RunsAdapter(this, runs);
         lvRuns = (ListView) findViewById(R.id.lvRuns);
         lvRuns.setAdapter(runsAdapter);
+        
+        // Clicking on a run should launch the steps page for that run.
+        lvRuns.setOnItemClickListener(new OnItemClickListener() {
+        	@Override
+        	public void onItemClick(AdapterView<?> adapter, View parent, int position, long rowId) {
+				int runId = runsAdapter.getItem(position).getRun();
+				Intent i = new Intent(getApplicationContext(), StepsActivity.class);
+				i.putExtra("run_id", runId);
+				startActivity(i);
+        	}
+        });
     }
 
 

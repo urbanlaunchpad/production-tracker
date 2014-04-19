@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import com.urbanlaunchpad.newmarket.model.Run;
 
-public class MainActivity extends Activity {
+public class RunsActivity extends Activity {
 	private static int REQUEST_CODE_RUN = 1;
 	
 	private ArrayList<Run> runs;

@@ -243,13 +243,13 @@ containing a value of this type.
         public static final int app_name=0x7f050006;
         public static final int bcontinue=0x7f05000a;
         public static final int big_Logo=0x7f050005;
-        public static final int btnSave=0x7f05000c;
-        public static final int etTextileName=0x7f05000d;
+        public static final int btnSave=0x7f05000b;
+        public static final int etTextileName=0x7f05000c;
         public static final int hybrid=0x7f050004;
         public static final int iniconfig_navbar=0x7f050009;
         public static final int ivTextile=0x7f050012;
         public static final int login_button=0x7f050008;
-        public static final int lvRuns=0x7f05000b;
+        public static final int lvRuns=0x7f05000d;
         public static final int mit_button=0x7f050010;
         public static final int mobility_futures_colaborative_button=0x7f05000f;
         public static final int none=0x7f050000;
@@ -267,8 +267,8 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int activity_iniconfig=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_run=0x7f030002;
+        public static final int activity_run=0x7f030001;
+        public static final int activity_runs=0x7f030002;
         public static final int activity_welcomes=0x7f030003;
         public static final int run_item=0x7f030004;
     }

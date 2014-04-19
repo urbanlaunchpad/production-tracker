@@ -17,6 +17,9 @@ public class MainActivity extends Activity {
 	private ArrayList<Run> runs;
 	private RunsAdapter runsAdapter;
 	private ListView lvRuns;
+	
+	public String fusionTables_Log_ID = "1D51BebQDM4uvsq_Jhe1lPUeuFC3hezbttdwqrDPT";
+	public String fustionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

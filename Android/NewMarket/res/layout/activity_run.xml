@@ -26,13 +26,4 @@
         android:onClick="saveRun"
         android:text="@string/save" />
 
-    <RelativeLayout
-        android:id="@+id/loadingPanel"
-        style="@style/GenericProgressBackground"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" >
-
-        <ProgressBar style="@style/GenericProgressIndicator" />
-    </RelativeLayout>
-
 </RelativeLayout>

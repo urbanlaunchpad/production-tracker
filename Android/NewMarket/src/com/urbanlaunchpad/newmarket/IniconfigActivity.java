@@ -98,6 +98,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 			// Go to runs activity
 			Intent i = new Intent(getApplicationContext(), RunActivity.class);
 			i.putExtra("username", username);
+			i.putExtra("credential", credential.toString());
 			startActivity(i);
 		}
 	}

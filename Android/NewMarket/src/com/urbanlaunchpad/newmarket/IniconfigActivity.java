@@ -31,7 +31,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	public static final int REQUEST_ACCOUNT_PICKER = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	public static final String FUSION_TABLE_SCOPE = "https://www.googleapis.com/auth/fusiontables";
-	public static final String API_KEY = "AIzaSyDaKmbcfkO82DeRHgJA4Mwwt1mBJ9_Hrx0";
+	public static final String API_KEY = "AIzaSyCqPamoXPMqdosIdnXSMk0Gl82fdGie0gs";
 
 
 	// Global instance of the JSON factory.
@@ -96,7 +96,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 					REQUEST_ACCOUNT_PICKER);
 		} else if (id == R.id.bcontinue) {
 			// Go to runs activity
-			Intent i = new Intent(getApplicationContext(), RunActivity.class);
+			Intent i = new Intent(getApplicationContext(), RunsActivity.class);
 			i.putExtra("username", username);
 			i.putExtra("credential", credential.toString());
 			startActivity(i);

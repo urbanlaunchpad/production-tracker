@@ -37,9 +37,10 @@ public class RunsAdapter extends ArrayAdapter<Run> {
 		stepView.setText(run.getStep());
 		
 		// Please note that this code assumes the image names are identical to the textile name.
-		// Clean this up once we have assets.
-		//String uri = "@drawable/" + run.getTextile() + ".png";
-		String uri = "@drawable/kotwali";
+		// e.g. if textile is "kotwali", drawable is called "kotwali.png"
+		// you can refer to this kotwali.png drawable in the drawables folder as "@drawable/kotwali". note the lack of file extension.
+		// Clean this up once we have assets; then we should have a spinner of the textile names.
+		String uri = "@drawable/" + run.getTextile();
 		int resource = super.getContext().getResources().getIdentifier(uri, null, super.getContext().getPackageName());
 		Drawable drawable = super.getContext().getResources().getDrawable(resource);
 		textileImageView.setImageDrawable(drawable);

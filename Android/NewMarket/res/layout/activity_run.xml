@@ -5,25 +5,24 @@
     android:padding="0dp"
     tools:context=".RunActivity" >
 
-    <EditText
-        android:id="@+id/etRunName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="29dp"
-        android:ems="10"
-        android:hint="@string/enter_run_name" >
-
-        <requestFocus />
-    </EditText>
-
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RunNameButton"
+        android:layout_below="@+id/etTextileName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="96dp"
         android:onClick="saveRun"
         android:text="@string/save" />
+
+    <EditText
+        android:id="@+id/etTextileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/enter_textile_name" />
 
 </RelativeLayout>

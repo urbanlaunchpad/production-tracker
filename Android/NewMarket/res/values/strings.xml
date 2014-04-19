@@ -3,23 +3,21 @@
 
     <!-- Colors -->
     <color name="blue_background">#29ABE2</color>
-   	<color name="dark_text">#000000</color> 
-   	<color name="light_text_background">#FFFFFF</color>
+    <color name="dark_text">#000000</color>
+    <color name="light_text_background">#FFFFFF</color>
 
     <string name="app_name">Production Tracker</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
     <string name="title_activity_run">RunActivity</string>
     <string name="add_run">Add a Run</string>
-    <string name="enter_run_name">Enter Run Name</string>
+    <string name="enter_textile_name">Enter Textile Name</string>
     <string name="save">Save</string>
     <string name="initial_configuration">Log In</string>
     <string name="username">Username</string>
     <string name="usernameText">Select user</string>
     <string name="continue_desc">Continue</string>
     <string name="big_logo_desc">Production Tracker logo</string>
-    
 
     <!-- Probably will be used -->
     <string name="invalid_user_project">invalid_user_project</string>
@@ -34,10 +32,12 @@
     <string name="projectNameText">Select project</string>
     <string name="projectName">Project name</string>
     <string name="projectNameButtonDesc">Project name</string>
-    
+
     <!-- Will have to be changed -->
     <string name="mobility_futures_colaborative_desc">mobility_futures_colaborative_desc</string>
     <string name="mit_desc">mit_desc</string>
     <string name="urban_launchpad_desc">urban_launchpad_desc</string>
+    <string name="textile_description">Textile Image</string>
+    <string name="title_activity_steps">StepsActivity</string>
 
 </resources>

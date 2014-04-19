@@ -3,12 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/tvRunName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/ivTextile"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="" />
+        android:contentDescription="@string/textile_description"
+        android:src="@drawable/kotwali" />
+
+    <TextView
+        android:id="@+id/tvRun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvTextileName"
+        android:layout_below="@+id/tvTextileName"
+        android:text="001" />
+
+    <TextView
+        android:id="@+id/tvTextileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="18dp"
+        android:layout_toRightOf="@+id/ivTextile"
+        android:text="Kotwali" />
+
+    <TextView
+        android:id="@+id/tvStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvRun"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvTextileName"
+        android:layout_marginRight="43dp"
+        android:text="Sewing" />
 
 </RelativeLayout>

@@ -36,9 +36,9 @@ public class RunsActivity extends Activity {
         lvRuns.setOnItemClickListener(new OnItemClickListener() {
         	@Override
         	public void onItemClick(AdapterView<?> adapter, View parent, int position, long rowId) {
-				int runId = runsAdapter.getItem(position).getRun();
+				Run run = runsAdapter.getItem(position);
 				Intent i = new Intent(getApplicationContext(), StepsActivity.class);
-				i.putExtra("run_id", runId);
+				i.putExtra("run", run);
 				startActivity(i);
         	}
         });

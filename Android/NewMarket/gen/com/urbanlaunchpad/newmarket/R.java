@@ -234,9 +234,10 @@ containing a value of this type.
         public static final int welcome=0x7f020024;
     }
     public static final class id {
-        public static final int action_add=0x7f050013;
-        public static final int action_settings=0x7f050014;
-        public static final int app_big_icon_button=0x7f05000e;
+        public static final int RunNameButton=0x7f05000e;
+        public static final int action_add=0x7f050015;
+        public static final int action_settings=0x7f050016;
+        public static final int app_big_icon_button=0x7f050010;
         public static final int app_name=0x7f050006;
         public static final int bcontinue=0x7f05000a;
         public static final int big_Logo=0x7f050005;
@@ -244,16 +245,17 @@ containing a value of this type.
         public static final int etRunName=0x7f05000c;
         public static final int hybrid=0x7f050004;
         public static final int iniconfig_navbar=0x7f050009;
+        public static final int loadingPanel=0x7f05000f;
         public static final int login_button=0x7f050008;
         public static final int lvRuns=0x7f05000b;
-        public static final int mit_button=0x7f050010;
-        public static final int mobility_futures_colaborative_button=0x7f05000f;
+        public static final int mit_button=0x7f050012;
+        public static final int mobility_futures_colaborative_button=0x7f050011;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int tvRunName=0x7f050012;
-        public static final int urban_launchpad_button=0x7f050011;
+        public static final int tvRunName=0x7f050014;
+        public static final int urban_launchpad_button=0x7f050013;
         public static final int usernameText=0x7f050007;
     }
     public static final class integer {
@@ -406,11 +408,13 @@ containing a value of this type.
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
 
+
     
 
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
+
 
         
 
@@ -430,6 +434,10 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090001;
+        /**  Styles for the progess indicator 
+         */
+        public static final int GenericProgressBackground=0x7f090004;
+        public static final int GenericProgressIndicator=0x7f090005;
         public static final int No_background=0x7f090003;
         public static final int welcome_Theme=0x7f090002;
     }

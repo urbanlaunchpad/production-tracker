@@ -16,6 +16,10 @@ import android.widget.*;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.fusiontables.Fusiontables;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
@@ -31,8 +35,12 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	public static final int REQUEST_ACCOUNT_PICKER = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	public static final String FUSION_TABLE_SCOPE = "https://www.googleapis.com/auth/fusiontables";
-	public static final String API_KEY = "AIzaSyCqPamoXPMqdosIdnXSMk0Gl82fdGie0gs";
-
+	public static final String FUSIONTABLES_READONLY_SCOPE = "https://www.googleapis.com/auth/fusiontables.readonly";
+	public static final String API_KEY = "AIzaSyDaKmbcfkO82DeRHgJA4Mwwt1mBJ9_Hrx0";
+	static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+	static final JsonFactory JSON_FACTORY = new JacksonFactory();
+	// public static final String API_KEY =
+	// "AIzaSyCqPamoXPMqdosIdnXSMk0Gl82fdGie0gs";
 
 	// Global instance of the JSON factory.
 
@@ -84,7 +92,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 
 		// get credential with scopes
 		credential = GoogleAccountCredential.usingOAuth2(this,
-				Arrays.asList(FUSION_TABLE_SCOPE, DriveScopes.DRIVE));
+				Arrays.asList(FUSION_TABLE_SCOPE, FUSIONTABLES_READONLY_SCOPE, DriveScopes.DRIVE));
 	}
 
 	@Override
@@ -97,8 +105,6 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		} else if (id == R.id.bcontinue) {
 			// Go to runs activity
 			Intent i = new Intent(getApplicationContext(), RunsActivity.class);
-			i.putExtra("username", username);
-			i.putExtra("credential", credential.toString());
 			startActivity(i);
 		}
 	}
@@ -134,21 +140,16 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 					&& data.getExtras() != null) {
 				username = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 				credential.setSelectedAccountName(username);
-
-//				fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
-//						JSON_FACTORY, credential).setApplicationName(
-//						"NewMarket").build();
+				fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
+						JSON_FACTORY, credential)
+						.setApplicationName("NewMarket").build();
+				// fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
+				// JSON_FACTORY, credential).setApplicationName(
+				// "NewMarket").build();
 
 				// update our username field
 				messageHandler.sendEmptyMessage(EVENT_TYPE.GOT_USERNAME
 						.ordinal());
-			}
-			break;
-		case REQUEST_PERMISSIONS:
-			if (resultCode == RESULT_OK) {
-			} else {
-				startActivityForResult(credential.newChooseAccountIntent(),
-						REQUEST_ACCOUNT_PICKER);
 			}
 			break;
 		}

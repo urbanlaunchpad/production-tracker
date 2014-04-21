@@ -73,7 +73,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_iniconfig);
-
+		// Check the preferences saving.
 		prefs = this.getSharedPreferences("com.urbanlaunchpad.newmarket",
 				Context.MODE_PRIVATE);
 		// initialize fields

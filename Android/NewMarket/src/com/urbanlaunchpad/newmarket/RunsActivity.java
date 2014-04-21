@@ -2,11 +2,13 @@ package com.urbanlaunchpad.newmarket;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.fusiontables.Fusiontables;
@@ -32,8 +35,13 @@ public class RunsActivity extends Activity {
 
 	public String fusionTables_Log_ID = "1D51BebQDM4uvsq_Jhe1lPUeuFC3hezbttdwqrDPT";
 	public String fusionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
-	public String responseString = null;
+	public List<List<Object>> responseArray = null;
 	public Fusiontables fusiontables = IniconfigActivity.fusiontables;
+
+	String textile[] = null;
+	String last_step[] = null;
+	Integer run[] = null;
+	Integer totalRuns = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +72,17 @@ public class RunsActivity extends Activity {
 				Run shirt = (Run) data.getSerializableExtra("run");
 				runsAdapter.add(shirt);
 			} else if (resultCode == RESULT_OK) {
-                getRunInfo();
-            } else {
-                startActivityForResult(IniconfigActivity.credential.newChooseAccountIntent(),
-                    REQUEST_ACCOUNT_PICKER);
-                IniconfigActivity.fusiontables = new Fusiontables.Builder(IniconfigActivity.HTTP_TRANSPORT,
-                        IniconfigActivity.JSON_FACTORY, IniconfigActivity.credential)
-                        .setApplicationName("UXMexico").build();
-            }
+				getRunInfo();
+			} else {
+				startActivityForResult(
+						IniconfigActivity.credential.newChooseAccountIntent(),
+						REQUEST_ACCOUNT_PICKER);
+				IniconfigActivity.fusiontables = new Fusiontables.Builder(
+						IniconfigActivity.HTTP_TRANSPORT,
+						IniconfigActivity.JSON_FACTORY,
+						IniconfigActivity.credential).setApplicationName(
+						"UXMexico").build();
+			}
 		}
 	}
 
@@ -92,26 +103,19 @@ public class RunsActivity extends Activity {
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "GET https://www.googleapis.com/fusiontables/v1/tables/"
-				+ fusionTables_Cache_ID; // + "?key=" +
-//											// IniconfigActivity.API_KEY;
-//		Sql sql = fusiontables.query().sql(query);
-//		com.google.api.services.fusiontables.model.Table fusionTable = fusiontables.table().get(fusionTables_Cache_ID).execute();
-		 Sql sql = fusiontables.query().sql(
-		 "SELECT run FROM " + fusionTables_Cache_ID
-//		 + " WHERE Number = '2'"
-		 );
+		String query = "SELECT run, textile, last_step FROM "
+				+ fusionTables_Cache_ID;
+		Sql sql = fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
 		Sqlresponse response = sql.execute();
 		if (response == null || response.getRows() == null) {
 			return false;
 		}
-		responseString = response.getRows().get(0).get(0).toString();
-
+		responseArray = response.getRows();
 		// TODO DP save this for offline use
 		// prefs.edit().putString("jsonSurveyString",
 		// jsonSurveyString).commit();
-		Log.v("response", responseString);
+		Log.v("response", responseArray.toString());
 		return true;
 	}
 
@@ -148,18 +152,32 @@ public class RunsActivity extends Activity {
 			protected void onPostExecute(Boolean success) {
 				super.onPostExecute(success);
 				if (success) {
-					try {
-						if (responseString == null) {
-							throw new JSONException("Didn't get the table");
+					if (responseArray == null) {
+						Log.v("Fusion Tables", "Table empty");
+					} else {
+						totalRuns = responseArray.size();
+						run = new Integer[totalRuns];
+						textile = new String[totalRuns];
+						last_step = new String[totalRuns];
+						for (int i=0; i<totalRuns; i++){
+							run[i] = Integer.getInteger((String) responseArray.get(i).get(1));
+							textile[i]=(String) responseArray.get(i).get(2);
+							last_step[i]= (String) responseArray.get(i).get(2);
 						}
-						// Try to parse
-						new JSONObject(responseString);
-					} catch (JSONException e) {
-						Log.e("JSON Parser",
-								"Error parsing data of cache Table"
-										+ e.toString());
+						populateListView();
+//						RelativeLayout loadingAnimationLayout = new RelativeLayout(getBaseContext());
+//						loadingAnimationLayout.findViewById(android.R.layout)
 					}
+				} else {
+					Log.v("Fusion Tables", "Didn't get the table");
 				}
+			}
+
+			private void populateListView() {
+				for (int i=0; i<totalRuns; i++){
+					
+				}
+				
 			}
 		}.execute();
 	}

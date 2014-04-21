@@ -4,23 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.fusiontables.Fusiontables;
-import com.google.api.services.fusiontables.Fusiontables.Table;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Run;
@@ -165,8 +161,8 @@ public class RunsActivity extends Activity {
 							last_step[i]= (String) responseArray.get(i).get(2);
 						}
 						populateListView();
-//						RelativeLayout loadingAnimationLayout = new RelativeLayout(getBaseContext());
-//						loadingAnimationLayout.findViewById(android.R.layout)
+						RelativeLayout loadingAnimationLayout =  (RelativeLayout) findViewById(R.id.loadingPanel);
+						loadingAnimationLayout.setVisibility(View.GONE);
 					}
 				} else {
 					Log.v("Fusion Tables", "Didn't get the table");

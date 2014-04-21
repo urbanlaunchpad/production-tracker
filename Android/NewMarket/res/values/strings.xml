@@ -5,6 +5,8 @@
     <color name="blue_background">#29ABE2</color>
     <color name="dark_text">#000000</color>
     <color name="light_text_background">#FFFFFF</color>
+    <color name="light_gray_field">#F2F2F2</color>
+    <color name="button">#0071BC</color>
 
     <string name="app_name">Production Tracker</string>
     <string name="action_settings">Settings</string>
@@ -19,6 +21,12 @@
     <string name="continue_desc">Continue</string>
     <string name="big_logo_desc">Production Tracker logo</string>
 
+    <!-- Runs list element -->
+    <string name="run_no_info">Run number - No info</string>
+    <string name="textile_no_info">Textile - No info</string>
+    <string name="last_step_no_info">Last step - No info</string>
+    <string name="run_continue_button_desc">Continue to this run’s information page</string>
+    
     <!-- Probably will be used -->
     <string name="invalid_user_project">invalid_user_project</string>
     <string name="select_user_first">select_user_first</string>

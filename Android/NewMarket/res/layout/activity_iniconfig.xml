@@ -53,10 +53,11 @@
     <Button
         android:id="@+id/login_button"
         android:layout_width="200dp"
+        android:background="@color/button"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:contentDescription="@string/usernameText"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:paddingRight="30dp"
         android:src="@drawable/add_user"
         android:text="@string/usernameText" />

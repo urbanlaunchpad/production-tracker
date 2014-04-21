@@ -1,43 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:background="@color/light_gray_field" >
 
-    <ImageView
-        android:id="@+id/ivTextile"
-        android:layout_width="75dp"
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="9" >
+
+        <ImageView
+            android:id="@+id/ivTextile"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/textile_description"
+            android:src="@drawable/no_textile_image" />
+
+        <TextView
+            android:id="@+id/tvRun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvTextileName"
+            android:layout_below="@+id/tvTextileName"
+            android:text="@string/run_no_info" />
+
+        <TextView
+            android:id="@+id/tvTextileName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="18dp"
+            android:layout_toRightOf="@+id/ivTextile"
+            android:text="@string/textile_no_info" />
+
+        <TextView
+            android:id="@+id/tvStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvRun"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tvTextileName"
+            android:layout_marginRight="43dp"
+            android:text="@string/last_step_no_info" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="75dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:contentDescription="@string/textile_description"
-        android:src="@drawable/kotwali" />
+        android:gravity="center"
+        android:layout_weight="1" >
 
-    <TextView
-        android:id="@+id/tvRun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvTextileName"
-        android:layout_below="@+id/tvTextileName"
-        android:text="001" />
+        <ImageView
+            android:id="@+id/runs_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/run_continue_button_desc"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@drawable/runs_continue_arrow" />
+    </FrameLayout>
 
-    <TextView
-        android:id="@+id/tvTextileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="18dp"
-        android:layout_toRightOf="@+id/ivTextile"
-        android:text="Kotwali" />
-
-    <TextView
-        android:id="@+id/tvStep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tvRun"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tvTextileName"
-        android:layout_marginRight="43dp"
-        android:text="Sewing" />
-
-</RelativeLayout>
+</LinearLayout>

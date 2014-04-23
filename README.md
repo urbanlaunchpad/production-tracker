@@ -3,6 +3,12 @@ production-tracker
 
 Design and development of Production Tracker application for improving garment industry production transparency.
 
+## Comps
+
+| Load screen   | Login         | Home  |
+| :-----------: |:-------------:| :----:|
+| ![Load screen](https://github.com/urbanlaunchpad/production-tracker/blob/master/assets/img/NMG_production-tracker_comp-01.png?raw=true) | ![Login](https://raw.githubusercontent.com/urbanlaunchpad/production-tracker/master/assets/img/NMG_production-tracker_comp-02.png) | ![Home](https://github.com/urbanlaunchpad/production-tracker/blob/master/assets/img/NMG_production-tracker_wireframes-03.png?raw=true) |
+
 ## Wireframes
 
 | Load screen   | Login         | Home  |

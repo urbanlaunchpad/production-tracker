@@ -22,7 +22,7 @@ import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Run;
 
 public class RunsActivity extends Activity {
-	private static int REQUEST_CODE_RUN = 1;
+	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
 	private ArrayList<Run> runs;
@@ -64,10 +64,7 @@ public class RunsActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case REQUEST_PERMISSIONS:
-			if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_RUN) {
-				Run shirt = (Run) data.getSerializableExtra("run");
-				runsAdapter.add(shirt);
-			} else if (resultCode == RESULT_OK) {
+			if (resultCode == RESULT_OK) {
 				getRunInfo();
 			} else {
 				startActivityForResult(
@@ -77,7 +74,12 @@ public class RunsActivity extends Activity {
 						IniconfigActivity.HTTP_TRANSPORT,
 						IniconfigActivity.JSON_FACTORY,
 						IniconfigActivity.credential).setApplicationName(
-						"UXMexico").build();
+						"NewMarket").build();
+			}
+		case REQUEST_CODE_RUN:
+			if (resultCode == RESULT_OK) {
+				Run shirt = (Run) data.getSerializableExtra("run");
+				runsAdapter.add(shirt);
 			}
 		}
 	}
@@ -155,13 +157,14 @@ public class RunsActivity extends Activity {
 						run = new Integer[totalRuns];
 						textile = new String[totalRuns];
 						last_step = new String[totalRuns];
-						for (int i=0; i<totalRuns; i++){
-							run[i] = Integer.getInteger((String) responseArray.get(i).get(1));
-							textile[i]=(String) responseArray.get(i).get(2);
-							last_step[i]= (String) responseArray.get(i).get(2);
+						for (int i = 0; i < totalRuns; i++) {
+							run[i] = Integer.parseInt((String) responseArray.get(i).get(
+									0));
+							textile[i] = (String) responseArray.get(i).get(1);
+							last_step[i] = (String) responseArray.get(i).get(2);
 						}
-						populateListView();
-						RelativeLayout loadingAnimationLayout =  (RelativeLayout) findViewById(R.id.loadingPanel);
+						populateListView(totalRuns, run, textile, last_step);
+						RelativeLayout loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
 						loadingAnimationLayout.setVisibility(View.GONE);
 					}
 				} else {
@@ -169,11 +172,13 @@ public class RunsActivity extends Activity {
 				}
 			}
 
-			private void populateListView() {
-				for (int i=0; i<totalRuns; i++){
-					
+			private void populateListView(Integer totalRuns, Integer[] runs,
+					String[] textiles, String[] last_steps) {
+				for (int i = 0; i < totalRuns; i++) {
+					Run tempRun = new Run(textiles[i].toLowerCase(), runs[i], last_steps[i]);
+					runsAdapter.add(tempRun);
 				}
-				
+
 			}
 		}.execute();
 	}

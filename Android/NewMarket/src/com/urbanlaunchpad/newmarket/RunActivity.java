@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.urbanlaunchpad.newmarket.model.Run;
+import com.urbanlaunchpad.newmarket.model.StepsClient;
 
 public class RunActivity extends Activity {
+	private static final String PLACEHOLDER_START_ACTIVITY = "Placeholder Start"; // replace this with the actual start activity later.
+
 	private EditText etTextileName;
 
 	@Override
@@ -29,11 +32,12 @@ public class RunActivity extends Activity {
 
 	
 	/** 
-	 * Called when a user chooses the 'save' button. 
+	 * Called when a user chooses the 'save' button.
 	 * */
 	public void saveRun(View view) {
+		String startActivity = StepsClient.getInstance().getStart();
 		String textile = etTextileName.getText().toString();
-		Run run = new Run(textile, 1, "Finishing"); // put random values for now. change later.
+		Run run = new Run(textile, 1, startActivity);
 		Intent data = new Intent();
 		data.putExtra("run", run);
 		setResult(RESULT_OK, data);

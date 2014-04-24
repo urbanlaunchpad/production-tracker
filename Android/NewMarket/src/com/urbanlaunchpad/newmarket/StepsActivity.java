@@ -2,21 +2,19 @@ package com.urbanlaunchpad.newmarket;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
-import android.widget.Toast;
-
-import com.urbanlaunchpad.newmarket.model.Run;
 
 public class StepsActivity extends Activity {
-	private Run run;
+	private String runID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steps);
 		
-		this.run = (Run) getIntent().getSerializableExtra("run");
-		//Toast.makeText(getApplicationContext(), "run textile is " + run.getTextile(), Toast.LENGTH_SHORT).show();
+		runID = (String) this.getIntent().getStringExtra(RunsActivity.ARG_RUNID);
+		Log.v("StepsActivity", "RunID from intent: " + runID);
 	}
 
 	@Override

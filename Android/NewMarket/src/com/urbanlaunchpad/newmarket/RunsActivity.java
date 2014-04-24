@@ -86,25 +86,27 @@ public class RunsActivity extends Activity {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Run run = (Run) data.getSerializableExtra("run");
 				runsAdapter.clear();
-				uploadNewRun(run);
+				String runIDString = "NM" + createRunID();
+				uploadNewRun(run, fusionTables_Cache_ID, runIDString);
+				uploadNewRun(run, fusionTables_Log_ID, runIDString);
 
 			}
 		}
 	}
 
-	private void uploadNewRun(final Run run) {
+	private void uploadNewRun(final Run run, final String fusionTables_ID, final String runID) {
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
 				if (run == null) {
 					return false;
 				}
-				
+
 				try {
-					String query = "INSERT INTO " + fusionTables_Cache_ID
-							+ " (run,last_step,textile)" + " VALUES ('"
+					String query = "INSERT INTO " + fusionTables_ID
+							+ " (run,step,textile,runID)" + " VALUES ('"
 							+ run.getRun() + "','" + run.getStep() + "','"
-							+ run.getTextile() + "');";
+							+ run.getTextile() + "','" + runID + "');";
 					Sql sql = fusiontables.query().sql(query);
 					sql.setKey(IniconfigActivity.API_KEY);
 					Sqlresponse response = sql.execute();
@@ -128,7 +130,9 @@ public class RunsActivity extends Activity {
 			@Override
 			protected void onPostExecute(Boolean success) {
 				super.onPostExecute(success);
-				getRunInfo();
+				if (fusionTables_ID.equals(fusionTables_Cache_ID)) {
+					getRunInfo();
+				}
 				if (success) {
 				} else {
 					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
@@ -156,7 +160,7 @@ public class RunsActivity extends Activity {
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "SELECT run, textile, last_step FROM "
+		String query = "SELECT run, textile, step FROM "
 				+ fusionTables_Cache_ID;
 		Sql sql = fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
@@ -235,6 +239,20 @@ public class RunsActivity extends Activity {
 			runsAdapter.add(tempRun);
 		}
 
+	}
+	
+	public String createRunID() {
+		String ID = null;
+		Integer randy;
+		for (int i = 0; i < 10; ++i) {
+			randy = (int) (Math.random() * ((9) + 1));
+			if (i == 0) {
+				ID = randy.toString();
+			} else {
+				ID = ID + randy.toString();
+			}
+		}
+		return ID;
 	}
 
 }

@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
     android:background="@color/light_gray_field"
     android:baselineAligned="false"
     android:gravity="top"
     android:orientation="horizontal"
     android:padding="0dp" >
 
-    <ImageView
-        android:id="@+id/ivTextile"
+    <FrameLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_margin="0dp"
         android:layout_weight="2.5"
-        android:contentDescription="@string/textile_description"
-        android:padding="0dp"
-        android:src="@drawable/no_textile_image" />
+        android:padding="0dp" >
+
+        <ImageView
+            android:id="@+id/ivTextile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/textile_description"
+            android:gravity="center_vertical"
+            android:src="@drawable/no_textile_image" />
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="0dp"
-        android:layout_weight="6.49"
-        android:padding="25dp" >
+        android:layout_weight="6.5" >
 
         <TextView
             android:id="@+id/tvRun"
@@ -31,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:padding="10dp"
             android:text="@string/run_no_info" />
 
         <TextView
@@ -39,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:padding="10dp"
             android:text="@string/textile_no_info" />
 
         <TextView
@@ -52,17 +60,22 @@
 
     <FrameLayout
         android:layout_width="0dp"
-        android:layout_height="75dp"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
         android:layout_weight="1"
-        android:layout_gravity="center_vertical" >
+        android:padding="0dp" >
 
         <ImageView
             android:id="@+id/runs_continue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
             android:contentDescription="@string/run_continue_button_desc"
+            android:gravity="center_vertical"
+            android:paddingBottom="0dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
+            android:paddingTop="0dp"
             android:src="@drawable/runs_continue_arrow" />
     </FrameLayout>
 

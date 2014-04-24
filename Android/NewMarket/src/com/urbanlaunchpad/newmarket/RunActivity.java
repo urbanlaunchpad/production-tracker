@@ -11,8 +11,6 @@ import com.urbanlaunchpad.newmarket.model.Run;
 import com.urbanlaunchpad.newmarket.model.StepsClient;
 
 public class RunActivity extends Activity {
-	private static final String PLACEHOLDER_START_ACTIVITY = "Placeholder Start"; // replace this with the actual start activity later.
-
 	private EditText etTextileName;
 
 	@Override

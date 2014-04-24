@@ -5,9 +5,9 @@ Design and development of Production Tracker application for improving garment i
 
 ## Comps
 
-| Load screen   | Login         | N/A  |
+| Load screen   | Login         | Add new run modal  |
 | :-----------: |:-------------:| :----:|
-| ![Load screen](https://github.com/urbanlaunchpad/production-tracker/blob/master/assets/img/NMG_production-tracker_comp-01.jpg?raw=true) | ![Login](https://raw.githubusercontent.com/urbanlaunchpad/production-tracker/master/assets/img/NMG_production-tracker_comp-02.jpg) | ![Login](https://raw.githubusercontent.com/urbanlaunchpad/production-tracker/master/assets/img/NMG_production-tracker_comp-02.jpg) |
+| ![Load screen](https://github.com/urbanlaunchpad/production-tracker/blob/master/assets/img/NMG_production-tracker_comps-05.png?raw=true) | ![Login](https://raw.githubusercontent.com/urbanlaunchpad/production-tracker/master/assets/img/NMG_production-tracker_comps-06.png) | ![Login](https://raw.githubusercontent.com/urbanlaunchpad/production-tracker/master/assets/img/NMG_production-tracker_comps-07.png) |
 
 ## Wireframes
 

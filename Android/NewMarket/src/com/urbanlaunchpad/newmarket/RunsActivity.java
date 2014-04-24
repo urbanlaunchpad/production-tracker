@@ -1,7 +1,6 @@
 package com.urbanlaunchpad.newmarket;
 
 import java.io.IOException;
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,8 +42,6 @@ public class RunsActivity extends Activity {
 	Sqlresponse response = null;
 
 	RelativeLayout loadingAnimationLayout;
-
-	public Boolean uploadingRunBoolean = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,16 +85,14 @@ public class RunsActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Run run = (Run) data.getSerializableExtra("run");
+				runsAdapter.clear();
 				uploadNewRun(run);
-				runs = new ArrayList<Run>();
-				runsAdapter = new RunsAdapter(this, runs);
-				getRunInfo();
+
 			}
 		}
 	}
 
 	private void uploadNewRun(final Run run) {
-		uploadingRunBoolean = true;
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
@@ -133,11 +128,10 @@ public class RunsActivity extends Activity {
 			@Override
 			protected void onPostExecute(Boolean success) {
 				super.onPostExecute(success);
+				getRunInfo();
 				if (success) {
-					uploadingRunBoolean = false;
 				} else {
 					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
-					uploadingRunBoolean = false;
 				}
 			}
 
@@ -180,16 +174,6 @@ public class RunsActivity extends Activity {
 
 	public void getRunInfo() {
 		// get and parse table
-//		while (uploadingRunBoolean) {
-//			synchronized (this) {
-//				try {
-//					wait(5);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//		}
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {

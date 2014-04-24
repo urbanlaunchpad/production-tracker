@@ -44,6 +44,8 @@ public class RunsActivity extends Activity {
 
 	RelativeLayout loadingAnimationLayout;
 
+	public Boolean uploadingRunBoolean = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,6 +97,7 @@ public class RunsActivity extends Activity {
 	}
 
 	private void uploadNewRun(final Run run) {
+		uploadingRunBoolean = true;
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
@@ -127,9 +130,10 @@ public class RunsActivity extends Activity {
 			protected void onPostExecute(Boolean success) {
 				super.onPostExecute(success);
 				if (success) {
-
+					uploadingRunBoolean = false;
 				} else {
 					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
+					uploadingRunBoolean = false;
 				}
 			}
 
@@ -172,8 +176,17 @@ public class RunsActivity extends Activity {
 
 	public void getRunInfo() {
 		// get and parse table
+//		while (uploadingRunBoolean) {
+//			synchronized (this) {
+//				try {
+//					wait(5);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 		new AsyncTask<Void, Void, Boolean>() {
-
 			@Override
 			protected Boolean doInBackground(Void... params) {
 				try {

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -25,6 +26,9 @@ public class RunsActivity extends Activity {
 	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
+	
+	public static final String ARG_RUNID = "Run id";
+	
 	private ArrayList<Run> runs;
 	private RunsAdapter runsAdapter;
 	private ListView lvRuns;
@@ -54,8 +58,17 @@ public class RunsActivity extends Activity {
 		runsAdapter = new RunsAdapter(this, runs);
 		lvRuns = (ListView) findViewById(R.id.lvRuns);
 		lvRuns.setAdapter(runsAdapter);
+		lvRuns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent i = new Intent(getApplicationContext(),
+						StepsActivity.class);
+				i.putExtra(ARG_RUNID, runID[position]);
+				startActivity(i);
+			}
+		});
 		loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
-
 		getRunInfo();
 	}
 
@@ -95,7 +108,8 @@ public class RunsActivity extends Activity {
 		}
 	}
 
-	private void uploadNewRun(final Run run, final String fusionTables_ID, final String runID) {
+	private void uploadNewRun(final Run run, final String fusionTables_ID,
+			final String runID) {
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
@@ -214,7 +228,7 @@ public class RunsActivity extends Activity {
 						totalRuns = responseArray.size();
 						run = new Integer[totalRuns];
 						textile = new String[totalRuns];
-						last_step = new String[totalRuns];	
+						last_step = new String[totalRuns];
 						runID = new String[totalRuns];
 						for (int i = 0; i < totalRuns; i++) {
 							run[i] = Integer.parseInt((String) responseArray
@@ -243,7 +257,7 @@ public class RunsActivity extends Activity {
 		}
 
 	}
-	
+
 	public String createRunID() {
 		String ID = null;
 		Integer randy;

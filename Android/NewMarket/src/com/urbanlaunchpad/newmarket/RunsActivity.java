@@ -1,6 +1,7 @@
 package com.urbanlaunchpad.newmarket;
 
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,10 @@ public class RunsActivity extends Activity {
 	Integer run[] = null;
 	Integer totalRuns = null;
 
+	Sqlresponse response = null;
+
+	RelativeLayout loadingAnimationLayout;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class RunsActivity extends Activity {
 		runsAdapter = new RunsAdapter(this, runs);
 		lvRuns = (ListView) findViewById(R.id.lvRuns);
 		lvRuns.setAdapter(runsAdapter);
+		loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
 
 		getRunInfo();
 	}
@@ -78,10 +84,57 @@ public class RunsActivity extends Activity {
 			}
 		case REQUEST_CODE_RUN:
 			if (resultCode == RESULT_OK) {
-				Run shirt = (Run) data.getSerializableExtra("run");
-				runsAdapter.add(shirt);
+				loadingAnimationLayout.setVisibility(View.VISIBLE);
+				Run run = (Run) data.getSerializableExtra("run");
+				uploadNewRun(run);
+				runs = new ArrayList<Run>();
+				runsAdapter = new RunsAdapter(this, runs);
+				getRunInfo();
 			}
 		}
+	}
+
+	private void uploadNewRun(final Run run) {
+		new AsyncTask<Void, Void, Boolean>() {
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				try {
+					String query = "INSERT INTO " + fusionTables_Cache_ID
+							+ " (run,last_step,textile)" + " VALUES ('"
+							+ run.getRun() + "','" + run.getStep() + "','"
+							+ run.getTextile() + "');";
+					Sql sql = fusiontables.query().sql(query);
+					sql.setKey(IniconfigActivity.API_KEY);
+					Sqlresponse response = sql.execute();
+					if (response == null || response.getRows() == null) {
+						return false;
+					}
+					Log.v("response", response.toString());
+					return true;
+				} catch (UserRecoverableAuthIOException e) {
+					startActivityForResult(e.getIntent(), REQUEST_PERMISSIONS);
+					Log.e("Fusion Tables error",
+							"UserRecoverableAuthIOException " + e.toString());
+					return false;
+				} catch (IOException e) {
+					// TODO DP If can't get updated version, use cached survey
+					Log.e("Fusion Tables error", "IOException " + e.toString());
+					return false;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(Boolean success) {
+				super.onPostExecute(success);
+				if (success) {
+
+				} else {
+					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
+				}
+			}
+
+		}.execute();
+
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -124,8 +177,7 @@ public class RunsActivity extends Activity {
 			@Override
 			protected Boolean doInBackground(Void... params) {
 				try {
-					getRunsCache();
-					return true;
+					return getRunsCache();
 				} catch (UserRecoverableAuthIOException e) {
 					startActivityForResult(e.getIntent(), REQUEST_PERMISSIONS);
 					Log.e("Fusion Tables error",
@@ -158,13 +210,12 @@ public class RunsActivity extends Activity {
 						textile = new String[totalRuns];
 						last_step = new String[totalRuns];
 						for (int i = 0; i < totalRuns; i++) {
-							run[i] = Integer.parseInt((String) responseArray.get(i).get(
-									0));
+							run[i] = Integer.parseInt((String) responseArray
+									.get(i).get(0));
 							textile[i] = (String) responseArray.get(i).get(1);
 							last_step[i] = (String) responseArray.get(i).get(2);
 						}
 						populateListView(totalRuns, run, textile, last_step);
-						RelativeLayout loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
 						loadingAnimationLayout.setVisibility(View.GONE);
 					}
 				} else {
@@ -172,15 +223,17 @@ public class RunsActivity extends Activity {
 				}
 			}
 
-			private void populateListView(Integer totalRuns, Integer[] runs,
-					String[] textiles, String[] last_steps) {
-				for (int i = 0; i < totalRuns; i++) {
-					Run tempRun = new Run(textiles[i].toLowerCase(), runs[i], last_steps[i]);
-					runsAdapter.add(tempRun);
-				}
-
-			}
 		}.execute();
+	}
+
+	private void populateListView(Integer totalRuns, Integer[] runs,
+			String[] textiles, String[] last_steps) {
+		for (int i = 0; i < totalRuns; i++) {
+			Run tempRun = new Run(textiles[i].toLowerCase(), runs[i],
+					last_steps[i]);
+			runsAdapter.add(tempRun);
+		}
+
 	}
 
 }

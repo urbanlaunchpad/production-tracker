@@ -86,7 +86,7 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		// set listeners and disable continue button
 		View loginButtonView = findViewById(R.id.login_button);
 		cont = (ImageView) findViewById(R.id.bcontinue);
-		cont.setVisibility(View.GONE);
+		cont.setVisibility(View.GONE); // SEE
 		loginButtonView.setOnClickListener(this);
 		cont.setOnClickListener(this);
 

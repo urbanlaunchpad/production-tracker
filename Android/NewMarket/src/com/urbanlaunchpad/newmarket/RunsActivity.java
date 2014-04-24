@@ -37,6 +37,7 @@ public class RunsActivity extends Activity {
 	String textile[] = null;
 	String last_step[] = null;
 	Integer run[] = null;
+	String runID[] = null;
 	Integer totalRuns = null;
 
 	Sqlresponse response = null;
@@ -160,7 +161,7 @@ public class RunsActivity extends Activity {
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "SELECT run, textile, step FROM "
+		String query = "SELECT run, textile, step, runID FROM "
 				+ fusionTables_Cache_ID;
 		Sql sql = fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
@@ -213,12 +214,14 @@ public class RunsActivity extends Activity {
 						totalRuns = responseArray.size();
 						run = new Integer[totalRuns];
 						textile = new String[totalRuns];
-						last_step = new String[totalRuns];
+						last_step = new String[totalRuns];	
+						runID = new String[totalRuns];
 						for (int i = 0; i < totalRuns; i++) {
 							run[i] = Integer.parseInt((String) responseArray
 									.get(i).get(0));
 							textile[i] = (String) responseArray.get(i).get(1);
 							last_step[i] = (String) responseArray.get(i).get(2);
+							runID[i] = (String) responseArray.get(i).get(3);
 						}
 						populateListView(totalRuns, run, textile, last_step);
 						loadingAnimationLayout.setVisibility(View.GONE);

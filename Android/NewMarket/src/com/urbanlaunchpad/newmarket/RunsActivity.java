@@ -33,8 +33,8 @@ public class RunsActivity extends Activity {
 	private RunsAdapter runsAdapter;
 	private ListView lvRuns;
 
-	public String fusionTables_Log_ID = "1D51BebQDM4uvsq_Jhe1lPUeuFC3hezbttdwqrDPT";
-	public String fusionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
+	public static String fusionTables_Log_ID = "1D51BebQDM4uvsq_Jhe1lPUeuFC3hezbttdwqrDPT";
+	public static String fusionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
 	public List<List<Object>> responseArray = null;
 	public Fusiontables fusiontables = IniconfigActivity.fusiontables;
 

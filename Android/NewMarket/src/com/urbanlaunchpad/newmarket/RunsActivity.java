@@ -101,6 +101,10 @@ public class RunsActivity extends Activity {
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
+				if (run == null) {
+					return false;
+				}
+				
 				try {
 					String query = "INSERT INTO " + fusionTables_Cache_ID
 							+ " (run,last_step,textile)" + " VALUES ('"

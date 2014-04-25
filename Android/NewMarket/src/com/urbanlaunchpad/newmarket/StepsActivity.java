@@ -8,14 +8,16 @@ import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 public class StepsActivity extends Activity {
+	private static final int REQUEST_CODE_STEP = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 
 	private String runID;
@@ -41,6 +43,21 @@ public class StepsActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.steps, menu);
 		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_add:
+			launchStepView();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void launchStepView() {
+		Intent i = new Intent(getApplicationContext(), NewStepActivity.class);
+		startActivityForResult(i, REQUEST_CODE_STEP);
 	}
 
 	public boolean getRunStepsFromLog() throws UserRecoverableAuthIOException,

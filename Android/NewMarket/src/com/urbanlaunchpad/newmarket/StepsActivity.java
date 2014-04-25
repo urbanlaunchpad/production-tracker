@@ -17,10 +17,12 @@ import android.widget.RelativeLayout;
 
 public class StepsActivity extends Activity {
 	public static final int REQUEST_PERMISSIONS = 2;
-	
+
 	private String runID;
 	private RelativeLayout loadingAnimationLayout;
 	private List<List<Object>> responseArray;
+
+	protected int totalSteps;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,8 @@ public class StepsActivity extends Activity {
 
 	public boolean getRunStepsFromLog() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "SELECT run, textile, step, runID FROM "
-				+ RunsActivity.fusionTables_Log_ID + " WHERE runID = '" + runID + "'";
+		String query = "SELECT step FROM " + RunsActivity.fusionTables_Log_ID
+				+ " WHERE runID = '" + runID + "'";
 		Sql sql = IniconfigActivity.fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
 		Sqlresponse response = sql.execute();
@@ -62,6 +64,8 @@ public class StepsActivity extends Activity {
 	public void getSteps() {
 		// get and parse table
 		new AsyncTask<Void, Void, Boolean>() {
+			private String[] steps;
+
 			@Override
 			protected Boolean doInBackground(Void... params) {
 				try {
@@ -72,7 +76,7 @@ public class StepsActivity extends Activity {
 							"UserRecoverableAuthIOException " + e.toString());
 					return false;
 				} catch (IOException e) {
-					// TODO DP If can't get updated version, use cached survey
+					// TODO DP If can't get updated version, use cached steps
 					// if
 					// (ProjectConfig.get().getProjectName().equals(prefs.getString("lastProject",
 					// ""))) {
@@ -93,24 +97,22 @@ public class StepsActivity extends Activity {
 					if (responseArray == null) {
 						Log.v("Fusion Tables", "Table empty");
 					} else {
-//						totalRuns = responseArray.size();
-//						run = new Integer[totalRuns];
-//						textile = new String[totalRuns];
-//						last_step = new String[totalRuns];
-//						runID = new String[totalRuns];
-//						for (int i = 0; i < totalRuns; i++) {
-//							run[i] = Integer.parseInt((String) responseArray
-//									.get(i).get(0));
-//							textile[i] = (String) responseArray.get(i).get(1);
-//							last_step[i] = (String) responseArray.get(i).get(2);
-//							runID[i] = (String) responseArray.get(i).get(3);
-//						}
-//						populateListView(totalRuns, run, textile, last_step);
-//						loadingAnimationLayout.setVisibility(View.GONE);
+						totalSteps = responseArray.size();
+						steps = new String[totalSteps];
+						for (int i = 0; i < totalSteps; i++) {
+							steps[i] = (String) responseArray.get(i).get(0);
+						}
+						populateListView(totalSteps, steps);
+						// loadingAnimationLayout.setVisibility(View.GONE);
 					}
 				} else {
 					Log.v("Fusion Tables", "Didn't get the table");
 				}
+			}
+
+			private void populateListView(int totalSteps, String[] steps2) {
+				// TODO Auto-generated method stub
+				
 			}
 
 		}.execute();

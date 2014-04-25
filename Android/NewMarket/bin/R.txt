@@ -78,9 +78,11 @@ int drawable sadarghat 0x7f020028
 int drawable ui_icons_arrow_left 0x7f020029
 int drawable ui_icons_close 0x7f02002a
 int drawable ui_icons_plus 0x7f02002b
-int drawable ulmxlogo 0x7f02002c
-int drawable uttara 0x7f02002d
-int drawable welcome 0x7f02002e
+int drawable ul_logo_big 0x7f02002c
+int drawable ulmxlogo 0x7f02002d
+int drawable uttara 0x7f02002e
+int drawable welcome 0x7f02002f
+int drawable wordmark_big 0x7f020030
 int id action_add 0x7f050019
 int id action_settings 0x7f05001a
 int id app_big_icon_button 0x7f050010

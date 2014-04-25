@@ -1,11 +1,14 @@
 package com.urbanlaunchpad.newmarket;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
+import com.urbanlaunchpad.newmarket.model.Run;
+import com.urbanlaunchpad.newmarket.model.Step;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +17,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 public class StepsActivity extends Activity {
@@ -26,14 +31,25 @@ public class StepsActivity extends Activity {
 
 	protected int totalSteps;
 
+	private ArrayList<Step> steps;
+	private StepsAdapter stepsAdapter;
+	private ListView lvSteps;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steps);
 		runID = (String) this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);
-		loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
 		Log.v("StepsActivity", "RunID from intent: " + runID);
+
+		steps = new ArrayList<Step>();
+		stepsAdapter = new StepsAdapter(this, steps);
+		lvSteps = (ListView) findViewById(R.id.lvSteps);
+		lvSteps.setAdapter(stepsAdapter);
+
+		loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
+
 		getSteps();
 
 	}
@@ -44,7 +60,7 @@ public class StepsActivity extends Activity {
 		getMenuInflater().inflate(R.menu.steps, menu);
 		return true;
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
@@ -120,16 +136,19 @@ public class StepsActivity extends Activity {
 							steps[i] = (String) responseArray.get(i).get(0);
 						}
 						populateListView(totalSteps, steps);
-						// loadingAnimationLayout.setVisibility(View.GONE);
+						loadingAnimationLayout.setVisibility(View.GONE);
 					}
 				} else {
 					Log.v("Fusion Tables", "Didn't get the table");
 				}
 			}
 
-			private void populateListView(int totalSteps, String[] steps2) {
-				// TODO Auto-generated method stub
-				
+			private void populateListView(int totalSteps, String[] steps) {
+				for (int i = 0; i < totalSteps; i++) {
+					Step tempStep = new Step(steps[i]);
+					stepsAdapter.add(tempStep);
+				}
+
 			}
 
 		}.execute();

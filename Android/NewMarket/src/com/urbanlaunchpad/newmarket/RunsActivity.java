@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -25,18 +26,22 @@ public class RunsActivity extends Activity {
 	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
+	
+	public static final String ARG_RUNID = "Run id";
+	
 	private ArrayList<Run> runs;
 	private RunsAdapter runsAdapter;
 	private ListView lvRuns;
 
-	public String fusionTables_Log_ID = "1D51BebQDM4uvsq_Jhe1lPUeuFC3hezbttdwqrDPT";
-	public String fusionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
+	public static String fusionTables_Log_ID = "1D51BebQDM4uvsq_Jhe1lPUeuFC3hezbttdwqrDPT";
+	public static String fusionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
 	public List<List<Object>> responseArray = null;
 	public Fusiontables fusiontables = IniconfigActivity.fusiontables;
 
 	String textile[] = null;
 	String last_step[] = null;
 	Integer run[] = null;
+	String runID[] = null;
 	Integer totalRuns = null;
 
 	Sqlresponse response = null;
@@ -53,8 +58,17 @@ public class RunsActivity extends Activity {
 		runsAdapter = new RunsAdapter(this, runs);
 		lvRuns = (ListView) findViewById(R.id.lvRuns);
 		lvRuns.setAdapter(runsAdapter);
+		lvRuns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent i = new Intent(getApplicationContext(),
+						StepsActivity.class);
+				i.putExtra(ARG_RUNID, runID[position]);
+				startActivity(i);
+			}
+		});
 		loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
-
 		getRunInfo();
 	}
 
@@ -94,7 +108,8 @@ public class RunsActivity extends Activity {
 		}
 	}
 
-	private void uploadNewRun(final Run run, final String fusionTables_ID, final String runID) {
+	private void uploadNewRun(final Run run, final String fusionTables_ID,
+			final String runID) {
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
@@ -160,7 +175,7 @@ public class RunsActivity extends Activity {
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "SELECT run, textile, step FROM "
+		String query = "SELECT run, textile, step, runID FROM "
 				+ fusionTables_Cache_ID;
 		Sql sql = fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
@@ -214,11 +229,13 @@ public class RunsActivity extends Activity {
 						run = new Integer[totalRuns];
 						textile = new String[totalRuns];
 						last_step = new String[totalRuns];
+						runID = new String[totalRuns];
 						for (int i = 0; i < totalRuns; i++) {
 							run[i] = Integer.parseInt((String) responseArray
 									.get(i).get(0));
 							textile[i] = (String) responseArray.get(i).get(1);
 							last_step[i] = (String) responseArray.get(i).get(2);
+							runID[i] = (String) responseArray.get(i).get(3);
 						}
 						populateListView(totalRuns, run, textile, last_step);
 						loadingAnimationLayout.setVisibility(View.GONE);
@@ -240,7 +257,7 @@ public class RunsActivity extends Activity {
 		}
 
 	}
-	
+
 	public String createRunID() {
 		String ID = null;
 		Integer randy;

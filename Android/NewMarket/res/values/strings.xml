@@ -26,6 +26,12 @@
     <string name="textile_no_info">Textile - No info</string>
     <string name="last_step_no_info">Last step - No info</string>
     <string name="run_continue_button_desc">Continue to this run’s information page</string>
+    
+    <!-- Step list element -->
+    <string name="step_no_info">Step - No info</string>
+    <string name="time_completed_no_info">Completed - No info</string>
+    <string name="update_button_desc">Button to update information of a step</string>
+    <string name="update_button_text">Update</string>
     
     <!-- Probably will be used -->
     <string name="invalid_user_project">invalid_user_project</string>

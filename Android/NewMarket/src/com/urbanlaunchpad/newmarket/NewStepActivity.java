@@ -1,5 +1,7 @@
 package com.urbanlaunchpad.newmarket;
 
+import java.util.Date;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -39,7 +41,8 @@ public class NewStepActivity extends Activity {
 	 * */
 	public void saveStep(View view) {
 		String step = etStepName.getText().toString();
-		Step stepStep = new Step(step);
+		Date start_time_UTC = new Date();
+		Step stepStep = new Step(step, start_time_UTC);
 		Intent data = new Intent();
 		data.putExtra("step", stepStep);
 		setResult(RESULT_OK, data);

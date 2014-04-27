@@ -1,7 +1,9 @@
 package com.urbanlaunchpad.newmarket;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
@@ -91,8 +93,9 @@ public class StepsActivity extends Activity {
 
 	public boolean getRunStepsFromLog() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "SELECT step FROM " + RunsActivity.fusionTables_Log_ID
-				+ " WHERE runID = '" + runID + "'";
+		String query = "SELECT step, start_time_UTC FROM "
+				+ RunsActivity.fusionTables_Log_ID + " WHERE runID = '" + runID
+				+ "'";
 		Sql sql = IniconfigActivity.fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
 		Sqlresponse response = sql.execute();
@@ -111,6 +114,7 @@ public class StepsActivity extends Activity {
 		// get and parse table
 		new AsyncTask<Void, Void, Boolean>() {
 			private String[] steps;
+			private Date[] start_time_UTC;
 
 			@Override
 			protected Boolean doInBackground(Void... params) {
@@ -145,10 +149,19 @@ public class StepsActivity extends Activity {
 					} else {
 						totalSteps = responseArray.size();
 						steps = new String[totalSteps];
+						start_time_UTC = new Date[totalSteps];
 						for (int i = 0; i < totalSteps; i++) {
 							steps[i] = (String) responseArray.get(i).get(0);
+							try {
+								start_time_UTC[i] = RunsActivity.uTC_SimpleDateFormat
+										.parse((String) responseArray.get(i)
+												.get(1));
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
-						populateListView(totalSteps, steps);
+						populateListView(totalSteps, steps, start_time_UTC);
 						loadingAnimationLayout.setVisibility(View.GONE);
 					}
 				} else {
@@ -159,9 +172,10 @@ public class StepsActivity extends Activity {
 		}.execute();
 	}
 
-	private void populateListView(int totalSteps, String[] steps) {
+	private void populateListView(int totalSteps, String[] steps,
+			Date[] start_time_UTC) {
 		for (int i = 0; i < totalSteps; i++) {
-			Step tempStep = new Step(steps[i]);
+			Step tempStep = new Step(steps[i], start_time_UTC[i]);
 			stepsAdapter.add(tempStep);
 			loadingAnimationLayout.setVisibility(View.GONE);
 		}
@@ -207,10 +221,20 @@ public class StepsActivity extends Activity {
 				}
 
 				try {
-					String query = "INSERT INTO " + fusionTables_ID
-							+ " (run,step,textile,runID)" + " VALUES ('" + run
-							+ "','" + step.getStep() + "','" + textile + "','"
-							+ runID + "');";
+					String query = "INSERT INTO "
+							+ fusionTables_ID
+							+ " (run,step,textile,runID,start_time_UTC)"
+							+ " VALUES ('"
+							+ run
+							+ "','"
+							+ step.getStep()
+							+ "','"
+							+ textile
+							+ "','"
+							+ runID
+							+ "','"
+							+ RunsActivity.uTC_SimpleDateFormat.format(step
+									.getStart_time_UTCstart_time_UTC()) + "');";
 					Sql sql = IniconfigActivity.fusiontables.query().sql(query);
 					sql.setKey(IniconfigActivity.API_KEY);
 					Sqlresponse response = sql.execute();
@@ -274,8 +298,13 @@ public class StepsActivity extends Activity {
 						Integer ROWID = Integer
 								.parseInt((String) ROWIDresponseArray.get(0)
 										.get(0));
-						String UPDATEquery = "UPDATE " + fusionTables_ID
-								+ " SET step = '" + step.getStep()
+						String UPDATEquery = "UPDATE "
+								+ fusionTables_ID
+								+ " SET step = '"
+								+ step.getStep()
+								+ "', time_last_update_UTC = '"
+								+ RunsActivity.uTC_SimpleDateFormat.format(step
+										.getStart_time_UTCstart_time_UTC())
 								+ "' WHERE ROWID = '" + ROWID + "'";
 						Sql UPDATEsql = IniconfigActivity.fusiontables.query()
 								.sql(UPDATEquery);

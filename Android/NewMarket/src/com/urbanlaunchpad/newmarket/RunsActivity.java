@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.json.JSONObject;
 
@@ -35,11 +36,11 @@ public class RunsActivity extends Activity {
 	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
-	
+
 	public static final String ARG_RUNID = "Run id";
 	public static final String ARG_TEXTILE = "Textile";
 	public static final String ARG_RUN = "Run";
-	
+
 	private ArrayList<Run> runsArrayList;
 	private RunsAdapter runsAdapter;
 	private ListView lvRuns;
@@ -48,6 +49,10 @@ public class RunsActivity extends Activity {
 	public static String fusionTables_Cache_ID = "1uC9y-8dd6Kk3kUCCRNtZR9oOSLFEcfGWyClSIaYl";
 	public List<List<Object>> responseArray = null;
 	public Fusiontables fusiontables = IniconfigActivity.fusiontables;
+
+	// Time parsing format.
+	static SimpleDateFormat uTC_SimpleDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");
 
 	String textile[] = null;
 	String last_step[] = null;
@@ -64,10 +69,14 @@ public class RunsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		// Custom color ActionBar
-		ActionBar ab = getActionBar();  
-        ab.setBackgroundDrawable(getResources().getDrawable(R.color.orange_background));
+		ActionBar ab = getActionBar();
+		ab.setBackgroundDrawable(getResources().getDrawable(
+				R.color.orange_background));
+
+		// Timezones adjusting.
+		uTC_SimpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		// TODO: (subha) update to java 7 so i can use <>
 		runsArrayList = new ArrayList<Run>();
@@ -80,11 +89,11 @@ public class RunsActivity extends Activity {
 					int position, long id) {
 				Intent i = new Intent(getApplicationContext(),
 						StepsActivity.class);
-				
+
 				i.putExtra(ARG_RUNID, runID[position]);
 				i.putExtra(ARG_RUN, run[position]);
 				i.putExtra(ARG_TEXTILE, textile[position]);
-				
+
 				startActivity(i);
 			}
 		});
@@ -121,14 +130,14 @@ public class RunsActivity extends Activity {
 				Run run = (Run) data.getSerializableExtra("run");
 				runsAdapter.clear();
 				String runIDString = "NM" + createRunID();
-				uploadNewRun(run, fusionTables_Cache_ID, runIDString);
-				uploadNewRun(run, fusionTables_Log_ID, runIDString);
+				uploadNewRunToLog(run, fusionTables_Log_ID, runIDString);
+				uploadNewRunToCache(run, fusionTables_Cache_ID, runIDString);
 
 			}
 		}
 	}
 
-	private void uploadNewRun(final Run run, final String fusionTables_ID,
+	private void uploadNewRunToLog(final Run run, final String fusionTables_ID,
 			final String runID) {
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
@@ -139,9 +148,64 @@ public class RunsActivity extends Activity {
 
 				try {
 					String query = "INSERT INTO " + fusionTables_ID
-							+ " (run,step,textile,runID)" + " VALUES ('"
-							+ run.getRun() + "','" + run.getStep() + "','"
-							+ run.getTextile() + "','" + runID + "');";
+							+ " (run,step,textile,runID,start_time_UTC)"
+							+ " VALUES ('" + run.getRun() + "','"
+							+ run.getStep() + "','" + run.getTextile() + "','"
+							+ runID + "','"
+							+ uTC_SimpleDateFormat.format(run.getTime())
+							+ "');";
+					Sql sql = fusiontables.query().sql(query);
+					sql.setKey(IniconfigActivity.API_KEY);
+					Sqlresponse response = sql.execute();
+					if (response == null || response.getRows() == null) {
+						return false;
+					}
+					Log.v("response", response.toString());
+					return true;
+				} catch (UserRecoverableAuthIOException e) {
+					startActivityForResult(e.getIntent(), REQUEST_PERMISSIONS);
+					Log.e("Fusion Tables error",
+							"UserRecoverableAuthIOException " + e.toString());
+					return false;
+				} catch (IOException e) {
+					// TODO DP If can't get updated version, use cached survey
+					Log.e("Fusion Tables error", "IOException " + e.toString());
+					return false;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(Boolean success) {
+				super.onPostExecute(success);
+				if (fusionTables_ID.equals(fusionTables_Cache_ID)) {
+				}
+				if (success) {
+				} else {
+					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
+				}
+			}
+
+		}.execute();
+
+	}
+
+	private void uploadNewRunToCache(final Run run,
+			final String fusionTables_ID, final String runID) {
+		new AsyncTask<Void, Void, Boolean>() {
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				if (run == null) {
+					return false;
+				}
+
+				try {
+					String query = "INSERT INTO " + fusionTables_ID
+							+ " (run,step,textile,runID,time_last_update_UTC)"
+							+ " VALUES ('" + run.getRun() + "','"
+							+ run.getStep() + "','" + run.getTextile() + "','"
+							+ runID + "','"
+							+ uTC_SimpleDateFormat.format(run.getTime())
+							+ "');";
 					Sql sql = fusiontables.query().sql(query);
 					sql.setKey(IniconfigActivity.API_KEY);
 					Sqlresponse response = sql.execute();
@@ -250,30 +314,27 @@ public class RunsActivity extends Activity {
 						textile = new String[totalRuns];
 						last_step = new String[totalRuns];
 						runID = new String[totalRuns];
-						
-						// Time parsing format.
-				        time_last_update_UTC = new Date[totalRuns];
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				    
-				        
-				        JSONObject submission = new JSONObject();
+						time_last_update_UTC = new Date[totalRuns];
+
+						JSONObject submission = new JSONObject();
 						for (int i = 0; i < totalRuns; i++) {
 							run[i] = Integer.parseInt((String) responseArray
 									.get(i).get(0));
 							textile[i] = (String) responseArray.get(i).get(1);
 							last_step[i] = (String) responseArray.get(i).get(2);
-							runID[i] = (String) responseArray.get(i).get(3);							
-							
+							runID[i] = (String) responseArray.get(i).get(3);
+							// Parsing time
 							try {
-								time_last_update_UTC[i] = sdf.parse((String) responseArray.get(i).get(4));
+								time_last_update_UTC[i] = uTC_SimpleDateFormat
+										.parse((String) responseArray.get(i)
+												.get(4));
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-				
-							Log.v("Time", sdf.format(time_last_update_UTC[i]));
+							// Log.v("Time",
+							// uTC_SimpleDateFormat.format(time_last_update_UTC[i]));
 
-							
 						}
 						populateListView(totalRuns, run, textile, last_step);
 						loadingAnimationLayout.setVisibility(View.GONE);
@@ -289,8 +350,8 @@ public class RunsActivity extends Activity {
 	private void populateListView(Integer totalRuns, Integer[] runs,
 			String[] textiles, String[] last_steps) {
 		for (int i = 0; i < totalRuns; i++) {
-			Run tempRun = new Run(textiles[i].toLowerCase(Locale.ENGLISH), runs[i],
-					last_steps[i]);
+			Run tempRun = new Run(textiles[i].toLowerCase(Locale.ENGLISH),
+					runs[i], last_steps[i], time_last_update_UTC[i]);
 			runsAdapter.add(tempRun);
 		}
 

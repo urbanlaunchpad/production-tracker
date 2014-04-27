@@ -2,6 +2,7 @@ package com.urbanlaunchpad.newmarket;
 
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,10 @@ public class RunActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_run);
+		
+		// Custom color ActionBar
+		ActionBar ab = getActionBar();  
+        ab.setBackgroundDrawable(getResources().getDrawable(R.color.orange_background));
 		
 		spTextile = (Spinner) findViewById(R.id.spTextile);
 		List<String> textileOptions = RunsClient.getInstance().getTextileOptions();

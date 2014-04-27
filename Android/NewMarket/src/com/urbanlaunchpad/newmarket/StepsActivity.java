@@ -11,6 +11,7 @@ import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Run;
 import com.urbanlaunchpad.newmarket.model.Step;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -43,6 +44,11 @@ public class StepsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steps);
+		
+		// Custom color ActionBar
+		ActionBar ab = getActionBar();  
+        ab.setBackgroundDrawable(getResources().getDrawable(R.color.orange_background));
+		
 		runID = (String) this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);
 		textile = (String) this.getIntent().getStringExtra(

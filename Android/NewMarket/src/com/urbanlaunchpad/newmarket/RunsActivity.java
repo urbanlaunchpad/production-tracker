@@ -1,13 +1,21 @@
 package com.urbanlaunchpad.newmarket;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.json.JSONObject;
+
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +39,7 @@ public class RunsActivity extends Activity {
 	public static final String ARG_TEXTILE = "Textile";
 	public static final String ARG_RUN = "Run";
 	
-	private ArrayList<Run> runs;
+	private ArrayList<Run> runsArrayList;
 	private RunsAdapter runsAdapter;
 	private ListView lvRuns;
 
@@ -44,6 +52,7 @@ public class RunsActivity extends Activity {
 	String last_step[] = null;
 	Integer run[] = null;
 	String runID[] = null;
+	Date time_last_update_UTC[] = null;
 	Integer totalRuns = null;
 
 	Sqlresponse response = null;
@@ -54,10 +63,14 @@ public class RunsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// Custom color ActionBar
+		ActionBar ab = getActionBar();  
+        ab.setBackgroundDrawable(getResources().getDrawable(R.color.orange_background));
 
 		// TODO: (subha) update to java 7 so i can use <>
-		runs = new ArrayList<Run>();
-		runsAdapter = new RunsAdapter(this, runs);
+		runsArrayList = new ArrayList<Run>();
+		runsAdapter = new RunsAdapter(this, runsArrayList);
 		lvRuns = (ListView) findViewById(R.id.lvRuns);
 		lvRuns.setAdapter(runsAdapter);
 		lvRuns.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -179,7 +192,7 @@ public class RunsActivity extends Activity {
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
-		String query = "SELECT run, textile, step, runID FROM "
+		String query = "SELECT run, textile, step, runID, time_last_update_UTC FROM "
 				+ fusionTables_Cache_ID;
 		Sql sql = fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
@@ -234,12 +247,30 @@ public class RunsActivity extends Activity {
 						textile = new String[totalRuns];
 						last_step = new String[totalRuns];
 						runID = new String[totalRuns];
+						
+						// Time parsing format.
+				        time_last_update_UTC = new Date[totalRuns];
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				    
+				        
+				        JSONObject submission = new JSONObject();
 						for (int i = 0; i < totalRuns; i++) {
 							run[i] = Integer.parseInt((String) responseArray
 									.get(i).get(0));
 							textile[i] = (String) responseArray.get(i).get(1);
 							last_step[i] = (String) responseArray.get(i).get(2);
-							runID[i] = (String) responseArray.get(i).get(3);
+							runID[i] = (String) responseArray.get(i).get(3);							
+							
+							try {
+								time_last_update_UTC[i] = sdf.parse((String) responseArray.get(i).get(4));
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+				
+							Log.v("Time", sdf.format(time_last_update_UTC[i]));
+
+							
 						}
 						populateListView(totalRuns, run, textile, last_step);
 						loadingAnimationLayout.setVisibility(View.GONE);

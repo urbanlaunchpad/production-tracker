@@ -1,5 +1,6 @@
 package com.urbanlaunchpad.newmarket;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,10 @@ public class NewStepActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_step);
+		
+		// Custom color ActionBar
+		ActionBar ab = getActionBar();  
+        ab.setBackgroundDrawable(getResources().getDrawable(R.color.orange_background));
 		
 		etStepName = (EditText) findViewById(R.id.etStepName);
  	}

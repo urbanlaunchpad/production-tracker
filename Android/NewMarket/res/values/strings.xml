@@ -18,13 +18,16 @@
     <string name="save">Save</string>
     <string name="initial_configuration">Log In</string>
     <string name="username">Username</string>
-    <string name="usernameText">Select user</string>
     <string name="continue_desc">Continue</string>
     <string name="big_logo_desc">Production Tracker logo</string>
 
     <!-- Welcome page -->
     <string name="version_number">Version 0.5</string>
     <string name="urban_launchpad_desc">Urban Launchpad</string>
+    
+    <!-- iniconfig page -->
+    <string name="username_button_Text">Login</string>
+    <string name="usernameText">Select user</string>
     
     <!-- Runs list element -->
     <string name="run_no_info">Run number - No info</string>

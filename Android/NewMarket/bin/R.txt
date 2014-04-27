@@ -90,9 +90,8 @@ int id app_big_icon_button 0x7f050011
 int id app_name 0x7f050006
 int id bcontinue 0x7f05000a
 int id big_Logo 0x7f050005
-int id btnSave 0x7f05000d
+int id btnSave 0x7f05000e
 int id etStepName 0x7f05000f
-int id etTextileName 0x7f05000e
 int id hybrid 0x7f050004
 int id iniconfig_navbar 0x7f050009
 int id ivTextile 0x7f050015
@@ -106,6 +105,7 @@ int id none 0x7f050000
 int id normal 0x7f050001
 int id runs_continue 0x7f050019
 int id satellite 0x7f050002
+int id spTextile 0x7f05000d
 int id terrain 0x7f050003
 int id tvRun 0x7f050016
 int id tvStep 0x7f050018

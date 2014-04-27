@@ -3,6 +3,7 @@ package com.urbanlaunchpad.newmarket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -66,7 +67,11 @@ public class RunsActivity extends Activity {
 					int position, long id) {
 				Intent i = new Intent(getApplicationContext(),
 						StepsActivity.class);
+				
 				i.putExtra(ARG_RUNID, runID[position]);
+				i.putExtra(ARG_RUN, run[position]);
+				i.putExtra(ARG_TEXTILE, textile[position]);
+				
 				startActivity(i);
 			}
 		});
@@ -253,7 +258,7 @@ public class RunsActivity extends Activity {
 	private void populateListView(Integer totalRuns, Integer[] runs,
 			String[] textiles, String[] last_steps) {
 		for (int i = 0; i < totalRuns; i++) {
-			Run tempRun = new Run(textiles[i].toLowerCase(), runs[i],
+			Run tempRun = new Run(textiles[i].toLowerCase(Locale.ENGLISH), runs[i],
 					last_steps[i]);
 			runsAdapter.add(tempRun);
 		}

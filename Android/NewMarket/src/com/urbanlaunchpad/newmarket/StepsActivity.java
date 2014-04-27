@@ -43,12 +43,11 @@ public class StepsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steps);
-		runID = (String) this.getIntent()
+		runID = this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);
-		textile =  (String) this.getIntent()
+		textile = this.getIntent()
 				.getStringExtra(RunsActivity.ARG_TEXTILE);
-		run = (Integer) Integer.parseInt(this.getIntent()
-				.getStringExtra(RunsActivity.ARG_RUN)) ;
+		run = this.getIntent().getIntExtra(RunsActivity.ARG_RUN, 0);
 		Log.v("StepsActivity", "RunID from intent: " + runID);
 
 		steps = new ArrayList<Step>();

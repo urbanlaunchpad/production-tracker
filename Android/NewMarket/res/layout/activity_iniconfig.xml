@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange_background"
+    android:background="@color/light_gray_field"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="0dp"
@@ -13,19 +13,23 @@
     tools:context=".Iniconfig" >
 
     <ImageView
-        android:id="@+id/big_Logo"
-        android:layout_width="fill_parent"
+        android:id="@+id/app_big_icon_button"
+        style="@style/No_background"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        android:background="@color/orange_background"
         android:contentDescription="@string/big_logo_desc"
-        android:gravity="center_vertical"
+        android:padding="40dp"
         android:src="@drawable/logo_big" />
 
     <TextView
         android:id="@+id/app_name"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.75"
+        android:background="@color/orange_background"
         android:fontFamily="sans-serif-bold"
         android:gravity="center"
         android:maxLines="2"
@@ -33,13 +37,29 @@
         android:singleLine="false"
         android:text="@string/app_name"
         android:textColor="@color/dark_text"
-        android:textSize="35sp" />
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:background="@color/orange_background"
+        android:fontFamily="sans-serif-bold"
+        android:gravity="center"
+        android:maxLines="2"
+        android:padding="15dp"
+        android:singleLine="false"
+        android:text="@string/version_number"
+        android:textColor="@color/dark_text"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/usernameText"
         android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_weight="0.5"
+        android:layout_margin="15dp"
         android:background="@color/light_text_background"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
@@ -53,19 +73,19 @@
     <Button
         android:id="@+id/login_button"
         android:layout_width="200dp"
-        android:background="@color/button"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:contentDescription="@string/usernameText"
+        android:background="@color/button"
+        android:contentDescription="@string/username_button_Text"
         android:gravity="center"
         android:src="@drawable/add_user"
-        android:text="@string/usernameText" />
+        android:text="@string/username_button_Text" />
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_margin="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:gravity="top"
         android:padding="0dp" >
 

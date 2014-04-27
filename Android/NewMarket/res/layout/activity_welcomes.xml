@@ -49,7 +49,7 @@
         style="@style/No_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:baselineAligned="false"
         android:orientation="horizontal" >
 
@@ -58,9 +58,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:padding="0dp" >
+            android:layout_weight="2"
+            android:background="@color/light_gray_field"
+            android:padding="50dp" >
 
             <ImageView
                 android:id="@+id/urban_launchpad_button"

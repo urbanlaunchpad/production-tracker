@@ -67,6 +67,8 @@ public class RunsActivity extends Activity {
 				Intent i = new Intent(getApplicationContext(),
 						StepsActivity.class);
 				i.putExtra(ARG_RUNID, runID[position]);
+				i.putExtra(ARG_RUN, run[position].toString());
+				i.putExtra(ARG_TEXTILE, textile[position]);
 				startActivity(i);
 			}
 		});

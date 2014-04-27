@@ -36,8 +36,8 @@ public class StepsActivity extends Activity {
 	private ArrayList<Step> steps;
 	private StepsAdapter stepsAdapter;
 	private ListView lvSteps;
-	private String textile = null;
-	private Integer run = null;
+	private String textile;
+	private Integer run;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,10 @@ public class StepsActivity extends Activity {
 		setContentView(R.layout.activity_steps);
 		runID = (String) this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);
-		textile =  (String) this.getIntent()
-				.getStringExtra(RunsActivity.ARG_TEXTILE);
-		run = (Integer) Integer.parseInt(this.getIntent()
-				.getStringExtra(RunsActivity.ARG_RUN)) ;
+		textile = (String) this.getIntent().getStringExtra(
+				RunsActivity.ARG_TEXTILE);
+		run = (Integer) Integer.parseInt(this.getIntent().getStringExtra(
+				RunsActivity.ARG_RUN));
 		Log.v("StepsActivity", "RunID from intent: " + runID);
 
 		steps = new ArrayList<Step>();
@@ -98,7 +98,7 @@ public class StepsActivity extends Activity {
 		// TODO DP save this for offline use
 		// prefs.edit().putString("jsonSurveyString",
 		// jsonSurveyString).commit();
-		Log.v("response", responseArray.toString());
+		Log.v("getRunStepsFromLog response", responseArray.toString());
 		return true;
 	}
 
@@ -162,7 +162,7 @@ public class StepsActivity extends Activity {
 		}
 
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -184,24 +184,130 @@ public class StepsActivity extends Activity {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Step step = (Step) data.getSerializableExtra("step");
 				stepsAdapter.clear();
-
-				uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID, runID);
-				uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID, runID);
+				uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID);
+				uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID,
+						runID);
 				getSteps();
 			}
 		}
 	}
 
-	private void uploadNewStepOnLog(final Step step, final String fusionTables_ID,
-			String runID) {
+	private void uploadNewStepOnLog(final Step step,
+			final String fusionTables_ID) {
+		new AsyncTask<Void, Void, Boolean>() {
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				if (step == null) {
+					return false;
+				}
 
-			
+				try {
+					String query = "INSERT INTO " + fusionTables_ID
+							+ " (run,step,textile,runID)" + " VALUES ('" + run
+							+ "','" + step.getStep() + "','" + textile + "','" + runID
+							+ "');";
+					Sql sql = IniconfigActivity.fusiontables.query().sql(query);
+					sql.setKey(IniconfigActivity.API_KEY);
+					Sqlresponse response = sql.execute();
+					if (response == null || response.getRows() == null) {
+						return false;
+					}
+					Log.v("response", response.toString());
+					return true;
+				} catch (UserRecoverableAuthIOException e) {
+					startActivityForResult(e.getIntent(), REQUEST_PERMISSIONS);
+					Log.e("Fusion Tables error",
+							"UserRecoverableAuthIOException " + e.toString());
+					return false;
+				} catch (IOException e) {
+					// TODO DP If can't get updated version, use cached survey
+					Log.e("Fusion Tables error", "IOException " + e.toString());
+					return false;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(Boolean success) {
+				super.onPostExecute(success);
+				if (success) {
+				} else {
+					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
+				}
+			}
+
+		}.execute();
+
 	}
 
-	private void uploadNewStepOnCache(Step step, String fusionTables_Cache_ID,
-			String runID2) {
-		// TODO Auto-generated method stub
-		
+	private void uploadNewStepOnCache(final Step step,
+			final String fusionTables_ID, String runID2) {
+		new AsyncTask<Void, Void, Boolean>() {
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				if (step == null) {
+					return false;
+				}
+
+				try {
+					String query = "SELECT ROWID FROM " + fusionTables_ID
+							+ " WHERE runID = '" + runID + "'";
+					Sql ROWIDsql = IniconfigActivity.fusiontables.query().sql(
+							query);
+					ROWIDsql.setKey(IniconfigActivity.API_KEY);
+					Sqlresponse ROWIDresponse = ROWIDsql.execute();
+					if (ROWIDresponse == null
+							|| ROWIDresponse.getRows() == null) {
+						return false;
+					} else {
+						Log.v("Getting ROWID response",
+								ROWIDresponse.toString());
+						// TODO code assumes there's only one row with searched
+						// id on the table, this element should solve cases of
+						// repeated elements.
+						List<List<Object>> ROWIDresponseArray = ROWIDresponse
+								.getRows();
+						Integer ROWID = Integer
+								.parseInt((String) ROWIDresponseArray.get(0)
+										.get(0));
+						String UPDATEquery = "UPDATE " + fusionTables_ID
+								+ " SET step = '" + step.getStep() + "' WHERE ROWID = '"
+								+ ROWID + "'";
+						Sql UPDATEsql = IniconfigActivity.fusiontables.query()
+								.sql(UPDATEquery);
+						UPDATEsql.setKey(IniconfigActivity.API_KEY);
+						Sqlresponse response = UPDATEsql.execute();
+						if (response == null || response.getRows() == null) {
+							return false;
+						}
+						Log.v("Update response", response.toString());
+						return true;
+
+					}
+
+				} catch (UserRecoverableAuthIOException e) {
+					startActivityForResult(e.getIntent(), REQUEST_PERMISSIONS);
+					Log.e("Fusion Tables error",
+							"UserRecoverableAuthIOException " + e.toString());
+					return false;
+				} catch (IOException e) {
+					// TODO DP If can't get updated version, use cached survey
+					Log.e("Fusion Tables error", "IOException " + e.toString());
+					return false;
+				}
+			}
+
+			@Override
+			protected void onPostExecute(Boolean success) {
+				super.onPostExecute(success);
+				if (success) {
+					getSteps();
+				} else {
+					Log.v("Fusion Tables", "Couldn't upload to Fusion Tables");
+				}
+			}
+
+		}.execute();
+
 	}
 
 }

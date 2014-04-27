@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.services.fusiontables.Fusiontables;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Run;
@@ -24,6 +25,7 @@ import android.widget.RelativeLayout;
 public class StepsActivity extends Activity {
 	private static final int REQUEST_CODE_STEP = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
+	private static final int REQUEST_ACCOUNT_PICKER = 0;
 
 	private String runID;
 	private RelativeLayout loadingAnimationLayout;
@@ -34,6 +36,8 @@ public class StepsActivity extends Activity {
 	private ArrayList<Step> steps;
 	private StepsAdapter stepsAdapter;
 	private ListView lvSteps;
+	private String textile = null;
+	private Integer run = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,10 @@ public class StepsActivity extends Activity {
 		setContentView(R.layout.activity_steps);
 		runID = (String) this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);
+		textile =  (String) this.getIntent()
+				.getStringExtra(RunsActivity.ARG_TEXTILE);
+		run = (Integer) Integer.parseInt(this.getIntent()
+				.getStringExtra(RunsActivity.ARG_RUN)) ;
 		Log.v("StepsActivity", "RunID from intent: " + runID);
 
 		steps = new ArrayList<Step>();
@@ -143,15 +151,57 @@ public class StepsActivity extends Activity {
 				}
 			}
 
-			private void populateListView(int totalSteps, String[] steps) {
-				for (int i = 0; i < totalSteps; i++) {
-					Step tempStep = new Step(steps[i]);
-					stepsAdapter.add(tempStep);
-				}
-
-			}
-
 		}.execute();
+	}
+
+	private void populateListView(int totalSteps, String[] steps) {
+		for (int i = 0; i < totalSteps; i++) {
+			Step tempStep = new Step(steps[i]);
+			stepsAdapter.add(tempStep);
+			loadingAnimationLayout.setVisibility(View.GONE);
+		}
+
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case REQUEST_PERMISSIONS:
+			if (resultCode == RESULT_OK) {
+				getSteps();
+			} else {
+				startActivityForResult(
+						IniconfigActivity.credential.newChooseAccountIntent(),
+						REQUEST_ACCOUNT_PICKER);
+				IniconfigActivity.fusiontables = new Fusiontables.Builder(
+						IniconfigActivity.HTTP_TRANSPORT,
+						IniconfigActivity.JSON_FACTORY,
+						IniconfigActivity.credential).setApplicationName(
+						"NewMarket").build();
+			}
+		case REQUEST_CODE_STEP:
+			if (resultCode == RESULT_OK) {
+				loadingAnimationLayout.setVisibility(View.VISIBLE);
+				Step step = (Step) data.getSerializableExtra("step");
+				stepsAdapter.clear();
+
+				uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID, runID);
+				uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID, runID);
+				getSteps();
+			}
+		}
+	}
+
+	private void uploadNewStepOnLog(final Step step, final String fusionTables_ID,
+			String runID) {
+
+			
+	}
+
+	private void uploadNewStepOnCache(Step step, String fusionTables_Cache_ID,
+			String runID2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -45,15 +45,18 @@
             android:label="@string/title_activity_run"
             android:screenOrientation="portrait" >
         </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
+        <activity
+            android:name="com.urbanlaunchpad.newmarket.NewStepActivity"
+            android:label="@string/title_activity_steps" >
+        </activity>
         <activity
             android:name="com.urbanlaunchpad.newmarket.StepsActivity"
             android:label="@string/title_activity_steps" >
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

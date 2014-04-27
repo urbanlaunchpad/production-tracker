@@ -32,7 +32,9 @@
     <string name="time_completed_no_info">Completed - No info</string>
     <string name="update_button_desc">Button to update information of a step</string>
     <string name="update_button_text">Update</string>
-    
+    
+    <!-- add New step activity -->
+    <string name="enter_step_name">Enter step name</string>
     <!-- Probably will be used -->
     <string name="invalid_user_project">invalid_user_project</string>
     <string name="select_user_first">select_user_first</string>

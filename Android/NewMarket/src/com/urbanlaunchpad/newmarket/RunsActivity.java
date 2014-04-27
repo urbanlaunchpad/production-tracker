@@ -28,6 +28,8 @@ public class RunsActivity extends Activity {
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
 	
 	public static final String ARG_RUNID = "Run id";
+	public static final String ARG_TEXTILE = "Textile";
+	public static final String ARG_RUN = "Run";
 	
 	private ArrayList<Run> runs;
 	private RunsAdapter runsAdapter;

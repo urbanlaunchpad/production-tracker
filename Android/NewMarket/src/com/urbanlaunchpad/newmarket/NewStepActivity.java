@@ -8,18 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.urbanlaunchpad.newmarket.model.Run;
+import com.urbanlaunchpad.newmarket.model.Step;
 import com.urbanlaunchpad.newmarket.model.StepsClient;
 
 public class NewStepActivity extends Activity {
 
-	/*private EditText etTextileName;	
+	private EditText etStepName;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_run);
+		setContentView(R.layout.activity_step);
 		
-		etTextileName = (EditText) findViewById(R.id.etTextileName);
+		etStepName = (EditText) findViewById(R.id.etStepName);
  	}
 
 	@Override
@@ -33,13 +34,12 @@ public class NewStepActivity extends Activity {
 	/** 
 	 * Called when a user chooses the 'save' button.
 	 * */
-	/*public void saveRun(View view) {
-		String startActivity = StepsClient.getInstance().getStart();
-		String textile = etTextileName.getText().toString();
-		Run run = new Run(textile, 1, startActivity);
+	public void saveStep(View view) {
+		String step = etStepName.getText().toString();
+		Step stepStep = new Step(step);
 		Intent data = new Intent();
-		data.putExtra("run", run);
+		data.putExtra("step", stepStep);
 		setResult(RESULT_OK, data);
 		finish();
-	}*/
+	}
 }

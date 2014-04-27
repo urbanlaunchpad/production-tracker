@@ -9,7 +9,6 @@ public class Step implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7457601238102982304L;
-//	private static final long serialVersionUID = 7457601238102982305L;
 	private String step;	
 	
 	public Step(String step) {

@@ -13,6 +13,6 @@
 # view AndroidManifest.xml #generated:22
 -keep class com.urbanlaunchpad.newmarket.WelcomeActivity { <init>(...); }
 
-# onClick res/layout/activity_run.xml #generated:8
+# onClick res/layout/activity_run.xml #generated:16
 -keepclassmembers class * { *** saveRun(...); }
 

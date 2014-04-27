@@ -12,7 +12,7 @@ import com.urbanlaunchpad.newmarket.model.StepsClient;
 
 public class NewStepActivity extends Activity {
 
-	private EditText etTextileName;	
+	/*private EditText etTextileName;	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class NewStepActivity extends Activity {
 	/** 
 	 * Called when a user chooses the 'save' button.
 	 * */
-	public void saveRun(View view) {
+	/*public void saveRun(View view) {
 		String startActivity = StepsClient.getInstance().getStart();
 		String textile = etTextileName.getText().toString();
 		Run run = new Run(textile, 1, startActivity);
@@ -41,5 +41,5 @@ public class NewStepActivity extends Activity {
 		data.putExtra("run", run);
 		setResult(RESULT_OK, data);
 		finish();
-	}
+	}*/
 }

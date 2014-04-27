@@ -44,17 +44,16 @@ public class StepsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steps);
-		
+
 		// Custom color ActionBar
-		ActionBar ab = getActionBar();  
-        ab.setBackgroundDrawable(getResources().getDrawable(R.color.orange_background));
-		
+		ActionBar ab = getActionBar();
+		ab.setBackgroundDrawable(getResources().getDrawable(
+				R.color.orange_background));
+
 		runID = (String) this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);
-		textile = (String) this.getIntent().getStringExtra(
-				RunsActivity.ARG_TEXTILE);
-		run = (Integer) Integer.parseInt(this.getIntent().getStringExtra(
-				RunsActivity.ARG_RUN));
+		textile = this.getIntent().getStringExtra(RunsActivity.ARG_TEXTILE);
+		run = this.getIntent().getIntExtra(RunsActivity.ARG_RUN, 0);
 		Log.v("StepsActivity", "RunID from intent: " + runID);
 
 		steps = new ArrayList<Step>();
@@ -210,8 +209,8 @@ public class StepsActivity extends Activity {
 				try {
 					String query = "INSERT INTO " + fusionTables_ID
 							+ " (run,step,textile,runID)" + " VALUES ('" + run
-							+ "','" + step.getStep() + "','" + textile + "','" + runID
-							+ "');";
+							+ "','" + step.getStep() + "','" + textile + "','"
+							+ runID + "');";
 					Sql sql = IniconfigActivity.fusiontables.query().sql(query);
 					sql.setKey(IniconfigActivity.API_KEY);
 					Sqlresponse response = sql.execute();
@@ -276,8 +275,8 @@ public class StepsActivity extends Activity {
 								.parseInt((String) ROWIDresponseArray.get(0)
 										.get(0));
 						String UPDATEquery = "UPDATE " + fusionTables_ID
-								+ " SET step = '" + step.getStep() + "' WHERE ROWID = '"
-								+ ROWID + "'";
+								+ " SET step = '" + step.getStep()
+								+ "' WHERE ROWID = '" + ROWID + "'";
 						Sql UPDATEsql = IniconfigActivity.fusiontables.query()
 								.sql(UPDATEquery);
 						UPDATEsql.setKey(IniconfigActivity.API_KEY);

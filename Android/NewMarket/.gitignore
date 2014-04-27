@@ -1,3 +1,4 @@
 # Directories #
-/bin/
-/gen/
+./bin/
+./gen/
+./project.properties

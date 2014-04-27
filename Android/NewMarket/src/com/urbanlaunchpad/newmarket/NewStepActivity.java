@@ -8,9 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-import com.urbanlaunchpad.newmarket.model.Run;
 import com.urbanlaunchpad.newmarket.model.Step;
-import com.urbanlaunchpad.newmarket.model.StepsClient;
 
 public class NewStepActivity extends Activity {
 

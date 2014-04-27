@@ -1,13 +1,16 @@
 # view AndroidManifest.xml #generated:38
 -keep class com.urbanlaunchpad.newmarket.IniconfigActivity { <init>(...); }
 
+# view AndroidManifest.xml #generated:48
+-keep class com.urbanlaunchpad.newmarket.NewStepActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:43
 -keep class com.urbanlaunchpad.newmarket.RunActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:33
 -keep class com.urbanlaunchpad.newmarket.RunsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:53
+# view AndroidManifest.xml #generated:52
 -keep class com.urbanlaunchpad.newmarket.StepsActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:22
@@ -15,4 +18,7 @@
 
 # onClick res/layout/activity_run.xml #generated:8
 -keepclassmembers class * { *** saveRun(...); }
+
+# onClick res/layout/activity_step.xml #generated:8
+-keepclassmembers class * { *** saveStep(...); }
 

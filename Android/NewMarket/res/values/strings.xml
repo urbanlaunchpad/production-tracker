@@ -2,7 +2,8 @@
 <resources>
 
     <!-- Colors -->
-    <color name="blue_background">#29ABE2</color>
+    <color name="orange_background">#ffb50b</color>
+    <color name="white">#ffffff</color>
     <color name="dark_text">#000000</color>
     <color name="light_text_background">#FFFFFF</color>
     <color name="light_gray_field">#F2F2F2</color>
@@ -21,6 +22,10 @@
     <string name="continue_desc">Continue</string>
     <string name="big_logo_desc">Production Tracker logo</string>
 
+    <!-- Welcome page -->
+    <string name="version_number">Version 0.5</string>
+    <string name="urban_launchpad_desc">Urban Launchpad</string>
+    
     <!-- Runs list element -->
     <string name="run_no_info">Run number - No info</string>
     <string name="textile_no_info">Textile - No info</string>
@@ -50,9 +55,6 @@
     <string name="projectNameButtonDesc">Project name</string>
 
     <!-- Will have to be changed -->
-    <string name="mobility_futures_colaborative_desc">mobility_futures_colaborative_desc</string>
-    <string name="mit_desc">mit_desc</string>
-    <string name="urban_launchpad_desc">urban_launchpad_desc</string>
     <string name="textile_description">Textile Image</string>
     <string name="title_activity_steps">StepsActivity</string>
 

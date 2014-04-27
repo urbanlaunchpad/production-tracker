@@ -1,19 +1,19 @@
-# view AndroidManifest.xml #generated:38
+# view AndroidManifest.xml #generated:39
 -keep class com.urbanlaunchpad.newmarket.IniconfigActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:48
+# view AndroidManifest.xml #generated:49
 -keep class com.urbanlaunchpad.newmarket.NewStepActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:43
+# view AndroidManifest.xml #generated:44
 -keep class com.urbanlaunchpad.newmarket.RunActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:33
+# view AndroidManifest.xml #generated:34
 -keep class com.urbanlaunchpad.newmarket.RunsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:52
+# view AndroidManifest.xml #generated:54
 -keep class com.urbanlaunchpad.newmarket.StepsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:22
+# view AndroidManifest.xml #generated:23
 -keep class com.urbanlaunchpad.newmarket.WelcomeActivity { <init>(...); }
 
 # onClick res/layout/activity_run.xml #generated:16

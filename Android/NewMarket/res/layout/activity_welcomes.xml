@@ -6,24 +6,44 @@
     android:padding="0dp"
     tools:context=".Welcomes" >
 
-    <FrameLayout
+    <ImageView
+        android:id="@+id/app_big_icon_button"
         style="@style/No_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.5"
+        android:contentDescription="@string/big_logo_desc"
+        android:padding="40dp"
+        android:src="@drawable/logo_big" />
+
+    <TextView
+        android:id="@+id/app_name"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_margin="0dp"
-        android:layout_weight="6"
-        android:padding="0dp" >
+        android:layout_weight="0.75"
+        android:fontFamily="sans-serif-bold"
+        android:gravity="center"
+        android:maxLines="2"
+        android:padding="15dp"
+        android:singleLine="false"
+        android:text="@string/app_name"
+        android:textColor="@color/dark_text"
+        android:textSize="30sp" />
 
-        <ImageView
-            style="@style/No_background"
-            android:id="@+id/app_big_icon_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:contentDescription="@string/big_logo_desc"
-            android:padding="40dp"
-            android:src="@drawable/logo_big" />
-    </FrameLayout>
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.75"
+        android:fontFamily="sans-serif-bold"
+        android:gravity="center"
+        android:maxLines="2"
+        android:padding="15dp"
+        android:singleLine="false"
+        android:text="@string/version_number"
+        android:textColor="@color/dark_text"
+        android:textSize="15sp" />
 
     <LinearLayout
         style="@style/No_background"
@@ -39,55 +59,18 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1"
+            android:background="@color/white"
             android:padding="0dp" >
 
             <ImageView
-                style="@style/No_background"
-                android:id="@+id/mobility_futures_colaborative_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:contentDescription="@string/mobility_futures_colaborative_desc"
-                android:padding="0dp"
-                android:src="@drawable/mfclogo" />
-        </FrameLayout>
-
-        <FrameLayout
-            style="@style/No_background"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:padding="0dp" >
-
-            <ImageView
-                style="@style/No_background"
-                android:id="@+id/mit_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:contentDescription="@string/mit_desc"
-                android:padding="0dp"
-                android:src="@drawable/mitlogo" />
-        </FrameLayout>
-
-        <FrameLayout
-            style="@style/No_background"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
-            android:padding="0dp" >
-
-            <ImageView
-                style="@style/No_background"
                 android:id="@+id/urban_launchpad_button"
+                style="@style/No_background"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:contentDescription="@string/urban_launchpad_desc"
                 android:padding="0dp"
-                android:src="@drawable/ulmxlogo" />
+                android:src="@drawable/ul_logo" />
         </FrameLayout>
     </LinearLayout>
 

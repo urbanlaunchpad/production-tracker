@@ -18,7 +18,7 @@
     </style>
 
     <style name="welcome_Theme" parent="android:Theme">
-        <item name="android:background">@drawable/welcome</item>
+        <item name="android:background">@color/orange_background</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>

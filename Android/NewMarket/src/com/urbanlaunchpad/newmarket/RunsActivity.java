@@ -260,7 +260,7 @@ public class RunsActivity extends Activity {
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
 		String query = "SELECT run, textile, step, runID, time_last_update_UTC FROM "
-				+ fusionTables_Cache_ID;
+				+ fusionTables_Cache_ID + " ORDER BY time_last_update_UTC";
 		Sql sql = fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
 		Sqlresponse response = sql.execute();

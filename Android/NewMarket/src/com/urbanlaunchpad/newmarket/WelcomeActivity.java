@@ -2,6 +2,7 @@ package com.urbanlaunchpad.newmarket;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +33,12 @@ public class WelcomeActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_welcomes);
 
 		findViewById(R.id.urban_launchpad_button).setOnClickListener(this);
+		
+		// Changing typeface
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+	            "fonts/raleway-regular.otf");
+	    TextView appName = (TextView) findViewById(R.id.app_name);
+	    appName.setTypeface(tf);
 
 	}
 

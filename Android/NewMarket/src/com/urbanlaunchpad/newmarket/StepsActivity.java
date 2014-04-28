@@ -69,7 +69,6 @@ public class StepsActivity extends FragmentActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Log.v("Step", "" + position);
 			}
 		});
 

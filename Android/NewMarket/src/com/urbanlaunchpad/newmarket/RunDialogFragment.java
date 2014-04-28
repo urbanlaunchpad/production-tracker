@@ -20,11 +20,17 @@ import com.urbanlaunchpad.newmarket.model.StepsClient;
 public class RunDialogFragment extends UlDialogFragment {
 	private static final String TAG_NAME = "addRunDialog";
 	
+	private RunCreationListener runCreationListener;
+	
     /**
      * Create a new instance of RunDialogFragment.
      */
     static RunDialogFragment newInstance() {
         return new RunDialogFragment();
+    }
+    
+    public void setRunCreationListener(RunCreationListener runCreationListener) {
+    	this.runCreationListener = runCreationListener;
     }
 	
     @Override
@@ -49,9 +55,9 @@ public class RunDialogFragment extends UlDialogFragment {
         Button button = (Button)v.findViewById(R.id.btnSave);
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                // When button is clicked, call up to owning activity.
-            	// TODO: subha - put runs activity behind a callback interface instead of assuming type
-                ((RunsActivity)getActivity()).runFragmentCallback(getNewRun(spTextile));
+                if (runCreationListener != null) {
+                	runCreationListener.onRunCreated(getNewRun(spTextile));
+                }
                 dismiss();
             }
         });

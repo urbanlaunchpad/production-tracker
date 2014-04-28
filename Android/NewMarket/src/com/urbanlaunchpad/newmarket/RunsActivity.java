@@ -35,7 +35,7 @@ import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Run;
 
-public class RunsActivity extends FragmentActivity {
+public class RunsActivity extends FragmentActivity implements RunCreationListener {
 	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
@@ -136,8 +136,7 @@ public class RunsActivity extends FragmentActivity {
 		}
 	}
 	
-	// TODO: (subha) put this method behind an interface
-	public void runFragmentCallback(Run run) {
+	public void onRunCreated(Run run) {
 		uploadNewRun(run);
 	}
 	
@@ -275,7 +274,8 @@ public class RunsActivity extends FragmentActivity {
 	    ft.addToBackStack(null);
 
 	    // Create and show the dialog.
-	    UlDialogFragment newFragment = RunDialogFragment.newInstance();
+	    RunDialogFragment newFragment = RunDialogFragment.newInstance();
+	    newFragment.setRunCreationListener(this);
 	    newFragment.show(ft, RunDialogFragment.getTagName());
 	    getSupportFragmentManager().executePendingTransactions();
 	    

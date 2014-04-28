@@ -370,5 +370,13 @@ public class RunsActivity extends Activity {
 		}
 		return ID;
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		loadingAnimationLayout.setVisibility(View.VISIBLE);
+		runsAdapter.clear();
+		getRunInfo();
+	}
 
 }

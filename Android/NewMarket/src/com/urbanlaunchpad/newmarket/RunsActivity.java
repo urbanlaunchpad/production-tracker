@@ -275,24 +275,17 @@ public class RunsActivity extends FragmentActivity {
 	    ft.addToBackStack(null);
 
 	    // Create and show the dialog.
-	    DialogFragment newFragment = RunDialogFragment.newInstance();
+	    UlDialogFragment newFragment = RunDialogFragment.newInstance();
 	    newFragment.show(ft, RunDialogFragment.getTagName());
 	    getSupportFragmentManager().executePendingTransactions();
-
-	    prettifyDialog(newFragment);
+	    
+	    newFragment.sizeDialog();
+	    
+	    // TODO (subha) : the title should be colored
+	    newFragment.setDialogTitle("Add a new run.");	    
 	}
 	
-	// This method fixes up the dimensions of the dialog and appropriately sets the title
-	// TODO (subha) the title should be colored.
-	private void prettifyDialog(DialogFragment dialogFragment) {
-		DisplayMetrics metrics = getResources().getDisplayMetrics();
-		int width = metrics.widthPixels;
-		int height = metrics.heightPixels;
-		Dialog dialog = dialogFragment.getDialog();
-		dialog.getWindow().setLayout((4 * width)/ 5, (4 * height)/ 5);
 
-		dialog.setTitle("Add a new run.");
-	}
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {

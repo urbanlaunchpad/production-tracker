@@ -118,8 +118,9 @@ int layout activity_step 0x7f030004
 int layout activity_steps 0x7f030005
 int layout activity_welcomes 0x7f030006
 int layout fragment_run 0x7f030007
-int layout run_item 0x7f030008
-int layout step_item 0x7f030009
+int layout fragment_step 0x7f030008
+int layout run_item 0x7f030009
+int layout step_item 0x7f03000a
 int menu main 0x7f0a0000
 int menu run 0x7f0a0001
 int menu steps 0x7f0a0002

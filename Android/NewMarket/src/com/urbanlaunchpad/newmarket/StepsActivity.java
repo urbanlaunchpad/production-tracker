@@ -6,18 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-import com.google.api.services.fusiontables.Fusiontables;
-import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
-import com.google.api.services.fusiontables.model.Sqlresponse;
-import com.urbanlaunchpad.newmarket.model.Run;
-import com.urbanlaunchpad.newmarket.model.Step;
-
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +20,13 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-public class StepsActivity extends Activity {
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
+import com.google.api.services.fusiontables.Fusiontables;
+import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
+import com.google.api.services.fusiontables.model.Sqlresponse;
+import com.urbanlaunchpad.newmarket.model.Step;
+
+public class StepsActivity extends FragmentActivity implements StepCreationListener {
 	private static final int REQUEST_CODE_STEP = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
@@ -79,16 +80,34 @@ public class StepsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
-			launchStepView();
+			launchAddStepView();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void launchStepView() {
-		Intent i = new Intent(getApplicationContext(), NewStepActivity.class);
-		startActivityForResult(i, REQUEST_CODE_STEP);
+	private void launchAddStepView() {
+		/*Intent i = new Intent(getApplicationContext(), NewStepActivity.class);
+		startActivityForResult(i, REQUEST_CODE_STEP);*/
+		
+	    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+	    Fragment prev = getSupportFragmentManager().findFragmentByTag(RunDialogFragment.getTagName());
+	    if (prev != null) {
+	        ft.remove(prev);
+	    }
+	    ft.addToBackStack(null);
+
+	    // Create and show the dialog.
+	    StepDialogFragment newFragment = StepDialogFragment.newInstance();
+	    newFragment.setStepCreationListener(this);
+	    newFragment.show(ft, RunDialogFragment.getTagName());
+	    getSupportFragmentManager().executePendingTransactions();
+	    
+	    newFragment.sizeDialog();
+	    
+	    // TODO (subha) : the title should be colored
+	    newFragment.setDialogTitle("Add a new step.");	
 	}
 
 	public boolean getRunStepsFromLog() throws UserRecoverableAuthIOException,
@@ -203,12 +222,20 @@ public class StepsActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Step step = (Step) data.getSerializableExtra("step");
-				uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID);
-				uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID,
-						runID);
-				getSteps();
+				onStepCreated(step);
 			}
 		}
+	}
+	
+	public void onStepCreated(Step step) {
+		uploadNewStep(step);
+		getSteps();
+	}
+	
+	private void uploadNewStep(Step step) {
+		uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID);
+		uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID,
+				runID);
 	}
 
 	private void uploadNewStepOnLog(final Step step,

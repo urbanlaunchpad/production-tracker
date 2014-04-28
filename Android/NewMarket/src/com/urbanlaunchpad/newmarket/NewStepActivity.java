@@ -40,11 +40,11 @@ public class NewStepActivity extends Activity {
 	 * Called when a user chooses the 'save' button.
 	 * */
 	public void saveStep(View view) {
-		String step = etStepName.getText().toString();
+		String stepName = etStepName.getText().toString();
 		Date start_time_UTC = new Date();
-		Step stepStep = new Step(step, start_time_UTC);
+		Step step = new Step(stepName, start_time_UTC);
 		Intent data = new Intent();
-		data.putExtra("step", stepStep);
+		data.putExtra("step", step);
 		setResult(RESULT_OK, data);
 		finish();
 	}

@@ -21,5 +21,6 @@
 -keepclassmembers class * { *** saveRun(...); }
 
 # onClick res/layout/activity_step.xml #generated:8
+# onClick res/layout/fragment_step.xml #generated:7
 -keepclassmembers class * { *** saveStep(...); }
 

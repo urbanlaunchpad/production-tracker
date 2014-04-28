@@ -12,12 +12,15 @@ import java.util.TimeZone;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.format.Time;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +35,7 @@ import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Run;
 
-public class RunsActivity extends Activity {
+public class RunsActivity extends FragmentActivity {
 	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
@@ -128,12 +131,20 @@ public class RunsActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Run run = (Run) data.getSerializableExtra("run");
-				String runIDString = "NM" + createRunID();
-				uploadNewRunToLog(run, fusionTables_Log_ID, runIDString);
-				uploadNewRunToCache(run, fusionTables_Cache_ID, runIDString);
-
+				uploadNewRun(run);
 			}
 		}
+	}
+	
+	// TODO: (subha) put this method behind an interface
+	public void runFragmentCallback(Run run) {
+		uploadNewRun(run);
+	}
+	
+	private void uploadNewRun(Run run) {
+		String runIDString = "NM" + createRunID();
+		uploadNewRunToLog(run, fusionTables_Log_ID, runIDString);
+		uploadNewRunToCache(run, fusionTables_Cache_ID, runIDString);
 	}
 
 	private void uploadNewRunToLog(final Run run, final String fusionTables_ID,
@@ -244,16 +255,43 @@ public class RunsActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
-			launchRunView();
+			launchAddRunView();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
-	private void launchRunView() {
-		Intent i = new Intent(getApplicationContext(), RunActivity.class);
-		startActivityForResult(i, REQUEST_CODE_RUN);
+	private void launchAddRunView() {
+		// The commented out code will launch a run activity
+		/*Intent i = new Intent(getApplicationContext(), RunActivity.class);
+		startActivityForResult(i, REQUEST_CODE_RUN);*/
+		
+	    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+	    Fragment prev = getSupportFragmentManager().findFragmentByTag("addRunDialog"); // TODO (subha) pull this out into a constant in dialog fragment as tag name
+	    if (prev != null) {
+	        ft.remove(prev);
+	    }
+	    ft.addToBackStack(null);
+
+	    // Create and show the dialog.
+	    DialogFragment newFragment = RunDialogFragment.newInstance();
+	    newFragment.show(ft, "addRunDialog");
+	    getSupportFragmentManager().executePendingTransactions();
+
+	    prettifyDialog(newFragment);
+	}
+	
+	// This method fixes up the dimensions of the dialog and appropriately sets the title
+	// TODO (subha) the title should be colored.
+	private void prettifyDialog(DialogFragment dialogFragment) {
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		int width = metrics.widthPixels;
+		int height = metrics.heightPixels;
+		Dialog dialog = dialogFragment.getDialog();
+		dialog.getWindow().setLayout((4 * width)/ 5, (4 * height)/ 5);
+
+		dialog.setTitle("Add a new run.");
 	}
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,

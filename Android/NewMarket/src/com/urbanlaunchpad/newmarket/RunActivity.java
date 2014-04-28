@@ -48,10 +48,10 @@ public class RunActivity extends Activity {
 	 * Called when a user chooses the 'save' button.
 	 * */
 	public void saveRun(View view) {
-		String startActivity = StepsClient.getInstance().getStart();
+		String startStep = StepsClient.getInstance().getStart();
 		String textile = spTextile.getSelectedItem().toString();
 		Date time_last_update_UTC = new Date();
-		Run run = new Run(textile, 1, startActivity, time_last_update_UTC);
+		Run run = new Run(textile, 1, startStep, time_last_update_UTC);
 		Intent data = new Intent();
 		data.putExtra("run", run);
 		setResult(RESULT_OK, data);

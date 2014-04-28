@@ -268,7 +268,7 @@ public class RunsActivity extends FragmentActivity {
 		startActivityForResult(i, REQUEST_CODE_RUN);*/
 		
 	    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-	    Fragment prev = getSupportFragmentManager().findFragmentByTag("addRunDialog"); // TODO (subha) pull this out into a constant in dialog fragment as tag name
+	    Fragment prev = getSupportFragmentManager().findFragmentByTag(RunDialogFragment.getTagName());
 	    if (prev != null) {
 	        ft.remove(prev);
 	    }
@@ -276,7 +276,7 @@ public class RunsActivity extends FragmentActivity {
 
 	    // Create and show the dialog.
 	    DialogFragment newFragment = RunDialogFragment.newInstance();
-	    newFragment.show(ft, "addRunDialog");
+	    newFragment.show(ft, RunDialogFragment.getTagName());
 	    getSupportFragmentManager().executePendingTransactions();
 
 	    prettifyDialog(newFragment);

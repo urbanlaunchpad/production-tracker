@@ -17,7 +17,9 @@ import com.urbanlaunchpad.newmarket.model.Run;
 import com.urbanlaunchpad.newmarket.model.RunsClient;
 import com.urbanlaunchpad.newmarket.model.StepsClient;
 
-public class RunDialogFragment extends DialogFragment {
+public class RunDialogFragment extends UlDialogFragment {
+	private static final String TAG_NAME = "addRunDialog";
+	
     /**
      * Create a new instance of RunDialogFragment.
      */
@@ -80,5 +82,13 @@ public class RunDialogFragment extends DialogFragment {
 		String textile = spTextile.getSelectedItem().toString();
 		Date time_last_update_UTC = new Date();
 		return new Run(textile, 1, startStep, time_last_update_UTC);
+	}
+
+	/**
+	 * Return the tag name of the matching xml file.
+	 * This is the value in android:tag of the top level xml layout.
+	 */
+	public static String getTagName() {
+		return TAG_NAME;
 	}
 }

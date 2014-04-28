@@ -128,7 +128,6 @@ public class RunsActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Run run = (Run) data.getSerializableExtra("run");
-				runsAdapter.clear();
 				String runIDString = "NM" + createRunID();
 				uploadNewRunToLog(run, fusionTables_Log_ID, runIDString);
 				uploadNewRunToCache(run, fusionTables_Cache_ID, runIDString);
@@ -349,6 +348,7 @@ public class RunsActivity extends Activity {
 
 	private void populateListView(Integer totalRuns, Integer[] runs,
 			String[] textiles, String[] last_steps) {
+		runsAdapter.clear();
 		for (int i = 0; i < totalRuns; i++) {
 			Run tempRun = new Run(textiles[i].toLowerCase(Locale.ENGLISH),
 					runs[i], last_steps[i], time_last_update_UTC[i]);
@@ -375,7 +375,6 @@ public class RunsActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		loadingAnimationLayout.setVisibility(View.VISIBLE);
-		runsAdapter.clear();
 		getRunInfo();
 	}
 

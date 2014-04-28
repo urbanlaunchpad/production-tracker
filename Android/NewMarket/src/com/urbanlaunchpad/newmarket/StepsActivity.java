@@ -95,7 +95,7 @@ public class StepsActivity extends Activity {
 			IOException {
 		String query = "SELECT step, start_time_UTC FROM "
 				+ RunsActivity.fusionTables_Log_ID + " WHERE runID = '" + runID
-				+ "'";
+				+ "' ORDER BY start_time_UTC";
 		Sql sql = IniconfigActivity.fusiontables.query().sql(query);
 		sql.setKey(IniconfigActivity.API_KEY);
 		Sqlresponse response = sql.execute();
@@ -174,6 +174,7 @@ public class StepsActivity extends Activity {
 
 	private void populateListView(int totalSteps, String[] steps,
 			Date[] start_time_UTC) {
+			stepsAdapter.clear();
 		for (int i = 0; i < totalSteps; i++) {
 			Step tempStep = new Step(steps[i], start_time_UTC[i]);
 			stepsAdapter.add(tempStep);
@@ -202,7 +203,6 @@ public class StepsActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				loadingAnimationLayout.setVisibility(View.VISIBLE);
 				Step step = (Step) data.getSerializableExtra("step");
-				stepsAdapter.clear();
 				uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID);
 				uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID,
 						runID);

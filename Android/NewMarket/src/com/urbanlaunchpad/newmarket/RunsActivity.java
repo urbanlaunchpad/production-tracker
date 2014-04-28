@@ -78,7 +78,7 @@ public class RunsActivity extends FragmentActivity implements RunCreationListene
 		ab.setBackgroundDrawable(getResources().getDrawable(
 				R.color.orange_background));
 
-		// Timezones adjusting.
+		// Timezones adjusting for date format.
 		uTC_SimpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		// TODO: (subha) update to java 7 so i can use <>

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -26,7 +27,8 @@ import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
 import com.urbanlaunchpad.newmarket.model.Step;
 
-public class StepsActivity extends FragmentActivity implements StepCreationListener {
+public class StepsActivity extends FragmentActivity implements
+		StepCreationListener {
 	private static final int REQUEST_CODE_STEP = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
@@ -63,6 +65,13 @@ public class StepsActivity extends FragmentActivity implements StepCreationListe
 		stepsAdapter = new StepsAdapter(this, steps);
 		lvSteps = (ListView) findViewById(R.id.lvSteps);
 		lvSteps.setAdapter(stepsAdapter);
+		lvSteps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Log.v("Step", "" + position);
+			}
+		});
 
 		loadingAnimationLayout = (RelativeLayout) findViewById(R.id.loadingPanel);
 
@@ -88,26 +97,29 @@ public class StepsActivity extends FragmentActivity implements StepCreationListe
 	}
 
 	private void launchAddStepView() {
-		/*Intent i = new Intent(getApplicationContext(), NewStepActivity.class);
-		startActivityForResult(i, REQUEST_CODE_STEP);*/
-		
-	    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-	    Fragment prev = getSupportFragmentManager().findFragmentByTag(RunDialogFragment.getTagName());
-	    if (prev != null) {
-	        ft.remove(prev);
-	    }
-	    ft.addToBackStack(null);
+		/*
+		 * Intent i = new Intent(getApplicationContext(),
+		 * NewStepActivity.class); startActivityForResult(i, REQUEST_CODE_STEP);
+		 */
 
-	    // Create and show the dialog.
-	    StepDialogFragment newFragment = StepDialogFragment.newInstance();
-	    newFragment.setStepCreationListener(this);
-	    newFragment.show(ft, RunDialogFragment.getTagName());
-	    getSupportFragmentManager().executePendingTransactions();
-	    
-	    newFragment.sizeDialog();
-	    
-	    // TODO (subha) : the title should be colored
-	    newFragment.setDialogTitle("Add a new step.");	
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		Fragment prev = getSupportFragmentManager().findFragmentByTag(
+				RunDialogFragment.getTagName());
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.addToBackStack(null);
+
+		// Create and show the dialog.
+		StepDialogFragment newFragment = StepDialogFragment.newInstance();
+		newFragment.setStepCreationListener(this);
+		newFragment.show(ft, RunDialogFragment.getTagName());
+		getSupportFragmentManager().executePendingTransactions();
+
+		newFragment.sizeDialog();
+
+		// TODO (subha) : the title should be colored
+		newFragment.setDialogTitle("Add a new step.");
 	}
 
 	public boolean getRunStepsFromLog() throws UserRecoverableAuthIOException,
@@ -193,7 +205,7 @@ public class StepsActivity extends FragmentActivity implements StepCreationListe
 
 	private void populateListView(int totalSteps, String[] steps,
 			Date[] start_time_UTC) {
-			stepsAdapter.clear();
+		stepsAdapter.clear();
 		for (int i = 0; i < totalSteps; i++) {
 			Step tempStep = new Step(steps[i], start_time_UTC[i]);
 			stepsAdapter.add(tempStep);
@@ -226,16 +238,15 @@ public class StepsActivity extends FragmentActivity implements StepCreationListe
 			}
 		}
 	}
-	
+
 	public void onStepCreated(Step step) {
 		uploadNewStep(step);
 		getSteps();
 	}
-	
+
 	private void uploadNewStep(Step step) {
 		uploadNewStepOnLog(step, RunsActivity.fusionTables_Log_ID);
-		uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID,
-				runID);
+		uploadNewStepOnCache(step, RunsActivity.fusionTables_Cache_ID, runID);
 	}
 
 	private void uploadNewStepOnLog(final Step step,

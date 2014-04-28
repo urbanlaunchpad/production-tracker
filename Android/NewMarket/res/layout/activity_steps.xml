@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="0dp"
-    tools:context=".MainActivity" >
+    tools:context=".StepsActivity" >
 
     <ListView
         android:id="@+id/lvSteps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:drawSelectorOnTop="true"
-        android:listSelector="@drawable/list_selector" >
+        android:layout_alignParentTop="true" >
     </ListView>
 
     <RelativeLayout

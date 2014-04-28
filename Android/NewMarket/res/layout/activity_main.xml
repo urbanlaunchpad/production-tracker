@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="0dp"
-    tools:context=".MainActivity" >
+    tools:context=".RunsActivity" >
 
     <ListView
         android:id="@+id/lvRuns"
@@ -18,7 +18,8 @@
         style="@style/GenericProgressBackground"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" >
-        <ProgressBar style="@style/GenericProgressIndicator" />
+
+        <ProgressBar style="@style/GenericProgressIndicator" />
     </RelativeLayout>
 
 </RelativeLayout>

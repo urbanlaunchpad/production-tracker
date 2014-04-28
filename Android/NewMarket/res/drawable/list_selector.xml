@@ -5,12 +5,24 @@
     <item android:state_focused="true" android:state_pressed="false"><shape>
             <solid android:color="@color/orange_background" />
         </shape></item>
+    <!-- Pressed and Selected -->
+    <item android:state_enabled="false" android:state_focused="true" android:state_pressed="true"><shape>
+            <solid android:color="@color/orange_background"></solid>
+        </shape></item>
     <!-- Pressed -->
     <item android:state_pressed="true"><shape>
             <solid android:color="@color/orange_background"></solid>
         </shape></item>
     <!-- Default -->
     <item android:state_focused="false" android:state_pressed="false"><shape>
+            <solid android:color="@color/light_gray_field"></solid>
+        </shape></item>
+    <!-- Disabled and focused -->
+    <item android:state_enabled="false" android:state_focused="true"><shape>
+            <solid android:color="@color/orange_background"></solid>
+        </shape></item>
+    <!-- Focused -->
+    <item android:state_focused="true"><shape>
             <solid android:color="@color/orange_background"></solid>
         </shape></item>
 

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0dp"
+    android:background="@drawable/list_selector"
     android:baselineAligned="false"
     android:gravity="top"
     android:orientation="horizontal"
@@ -57,11 +58,13 @@
         android:padding="10dp" >
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/update_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/button"
             android:contentDescription="@string/update_button_desc"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:gravity="center"
             android:paddingRight="30dp"
             android:text="@string/update_button_text" />

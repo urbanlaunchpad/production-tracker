@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.urbanlaunchpad.newmarket.model.Step;
@@ -26,6 +27,7 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 
 		Step step = getItem(position);
 		TextView stepView = (TextView) view.findViewById(R.id.tvStep);
+		Button updateButton = (Button) view.findViewById(R.id.update_button);
 //		ImageView textileImageView = (ImageView) view.findViewById(R.id.ivTextile);
 
 //		textileNameView.setText(run.getTextile());

@@ -38,6 +38,7 @@ public class WelcomeActivity extends Activity implements OnClickListener {
 		
 		// Changing typefaces
 		TextView appName = (TextView) typefaceHelper.setCustomTypeface(findViewById(R.id.app_name), this);
+		TextView version = (TextView) typefaceHelper.setCustomTypeface(findViewById(R.id.version), this);
 
 	}
 

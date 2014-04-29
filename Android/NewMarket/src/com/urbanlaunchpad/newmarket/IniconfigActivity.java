@@ -26,6 +26,7 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.fusiontables.Fusiontables;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
+import com.urbanlaunchpad.newmarket.helpers.typefaceHelper;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -51,10 +52,10 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 	public static GoogleAccountCredential credential;
 	public static Fusiontables fusiontables;
 	public static SharedPreferences prefs;
-	TextView usernameField;
 	ImageView cont;
 	AutoCompleteTextView input;
 	String jsonsurveystring;
+	protected TextView usernameField;
 	@SuppressLint("HandlerLeak")
 	private Handler messageHandler = new Handler() {
 
@@ -83,23 +84,30 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 		// Check the preferences saving.
 		prefs = this.getSharedPreferences("com.urbanlaunchpad.newmarket",
 				Context.MODE_PRIVATE);
-		// initialize fields
-		usernameField = (TextView) findViewById(R.id.usernameText);
-
+		// Custom typefaces.
+		TextView appName = (TextView) typefaceHelper.setCustomTypeface(
+				findViewById(R.id.app_name), this);
+		TextView version = (TextView) typefaceHelper.setCustomTypeface(
+				findViewById(R.id.version), this);
+		usernameField = (TextView) typefaceHelper.setCustomTypeface(
+				findViewById(R.id.usernameText), this);
+		Button loginButtonView = (Button) typefaceHelper.setCustomTypeface(
+				findViewById(R.id.login_button), this);
 		// TODO handle saved username preferences.
 		if (prefs.contains("username")) {
 		}
 
 		// set listeners and disable continue button
-		View loginButtonView = findViewById(R.id.login_button);
+
 		cont = (ImageView) findViewById(R.id.bcontinue);
 		cont.setVisibility(View.GONE);
 		loginButtonView.setOnClickListener(this);
 		cont.setOnClickListener(this);
 
 		// get credential with scopes
-		credential = GoogleAccountCredential.usingOAuth2(this,
-				Arrays.asList(FUSION_TABLE_SCOPE, FUSIONTABLES_READONLY_SCOPE, DriveScopes.DRIVE));
+		credential = GoogleAccountCredential.usingOAuth2(this, Arrays.asList(
+				FUSION_TABLE_SCOPE, FUSIONTABLES_READONLY_SCOPE,
+				DriveScopes.DRIVE));
 	}
 
 	@Override
@@ -148,8 +156,8 @@ public class IniconfigActivity extends Activity implements View.OnClickListener 
 				username = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
 				credential.setSelectedAccountName(username);
 				fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
-						JSON_FACTORY, credential)
-						.setApplicationName("NewMarket").build();
+						JSON_FACTORY, credential).setApplicationName(
+						"NewMarket").build();
 				// fusiontables = new Fusiontables.Builder(HTTP_TRANSPORT,
 				// JSON_FACTORY, credential).setApplicationName(
 				// "NewMarket").build();

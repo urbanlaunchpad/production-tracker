@@ -15,6 +15,8 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.urbanlaunchpad.newmarket.helpers.typefaceHelper;
+
 public class WelcomeActivity extends Activity implements OnClickListener {
 
 	// private long splashDelay = 1000; // 1 second for debugging.
@@ -34,11 +36,8 @@ public class WelcomeActivity extends Activity implements OnClickListener {
 
 		findViewById(R.id.urban_launchpad_button).setOnClickListener(this);
 		
-		// Changing typeface
-		Typeface tf = Typeface.createFromAsset(getAssets(),
-	            "fonts/raleway-regular.otf");
-	    TextView appName = (TextView) findViewById(R.id.app_name);
-	    appName.setTypeface(tf);
+		// Changing typefaces
+		TextView appName = (TextView) typefaceHelper.setCustomTypeface(findViewById(R.id.app_name), this);
 
 	}
 

@@ -35,7 +35,7 @@ public class StepsAdapter extends ArrayAdapter<Step> {
 		Button updateButton = (Button) typefaceHelper.setCustomTypeface(
 				view.findViewById(R.id.update_button), getContext());
 
-		stepView.setText(step.getStep());
+		stepView.setText(step.getStep());	
 
 		return view;
 	}

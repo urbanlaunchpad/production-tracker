@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.urbanlaunchpad.newmarket.helpers.typefaceHelper;
 import com.urbanlaunchpad.newmarket.model.Run;
 
 public class RunsAdapter extends ArrayAdapter<Run> {
@@ -27,9 +28,14 @@ public class RunsAdapter extends ArrayAdapter<Run> {
 		}
 
 		Run run = getItem(position);
-		TextView textileNameView = (TextView) view.findViewById(R.id.tvTextileName);
-		TextView runNumberView = (TextView) view.findViewById(R.id.tvRun);
-		TextView stepView = (TextView) view.findViewById(R.id.tvStep);
+
+		TextView textileNameView = (TextView) typefaceHelper.setCustomTypeface(
+				view.findViewById(R.id.tvTextileName), getContext());
+		TextView runNumberView = (TextView) typefaceHelper.setCustomTypeface(
+				view.findViewById(R.id.tvRun), getContext());
+		TextView stepView = (TextView) typefaceHelper.setCustomTypeface(
+				view.findViewById(R.id.tvStep), getContext());
+		
 		ImageView textileImageView = (ImageView) view.findViewById(R.id.ivTextile);
 
 		textileNameView.setText(run.getTextile());
@@ -46,5 +52,10 @@ public class RunsAdapter extends ArrayAdapter<Run> {
 		textileImageView.setImageDrawable(drawable);
 		
 		return view;
+	}
+
+	private View getActivity() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

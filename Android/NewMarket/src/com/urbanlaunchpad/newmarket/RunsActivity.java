@@ -38,7 +38,8 @@ import com.urbanlaunchpad.newmarket.helpers.CustomActionBarHelper;
 import com.urbanlaunchpad.newmarket.helpers.typefaceHelper;
 import com.urbanlaunchpad.newmarket.model.Run;
 
-public class RunsActivity extends FragmentActivity implements RunCreationListener {
+public class RunsActivity extends FragmentActivity implements
+		RunCreationListener {
 	private static final int REQUEST_CODE_RUN = 1;
 	public static final int REQUEST_PERMISSIONS = 2;
 	private static final int REQUEST_ACCOUNT_PICKER = 0;
@@ -75,9 +76,9 @@ public class RunsActivity extends FragmentActivity implements RunCreationListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	
+
 		// Custom action bar
-		CustomActionBarHelper.customizeActionBar(this,this);
+		CustomActionBarHelper.customizeActionBar(this, this);
 
 		// Timezones adjusting for date format.
 		uTC_SimpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -136,11 +137,11 @@ public class RunsActivity extends FragmentActivity implements RunCreationListene
 			}
 		}
 	}
-	
+
 	public void onRunCreated(Run run) {
 		uploadNewRun(run);
 	}
-	
+
 	private void uploadNewRun(Run run) {
 		String runIDString = "NM" + createRunID();
 		uploadNewRunToLog(run, fusionTables_Log_ID, runIDString);
@@ -264,29 +265,30 @@ public class RunsActivity extends FragmentActivity implements RunCreationListene
 
 	private void launchAddRunView() {
 		// The commented out code will launch a run activity
-		/*Intent i = new Intent(getApplicationContext(), RunActivity.class);
-		startActivityForResult(i, REQUEST_CODE_RUN);*/
-		
-	    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-	    Fragment prev = getSupportFragmentManager().findFragmentByTag(RunDialogFragment.getTagName());
-	    if (prev != null) {
-	        ft.remove(prev);
-	    }
-	    ft.addToBackStack(null);
+		/*
+		 * Intent i = new Intent(getApplicationContext(), RunActivity.class);
+		 * startActivityForResult(i, REQUEST_CODE_RUN);
+		 */
 
-	    // Create and show the dialog.
-	    RunDialogFragment newFragment = RunDialogFragment.newInstance();
-	    newFragment.setRunCreationListener(this);
-	    newFragment.show(ft, RunDialogFragment.getTagName());
-	    getSupportFragmentManager().executePendingTransactions();
-	    
-	    newFragment.sizeDialog();
-	    
-	    // TODO (subha) : the title should be colored
-	    newFragment.setDialogTitle("Add a new run.");	    
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		Fragment prev = getSupportFragmentManager().findFragmentByTag(
+				RunDialogFragment.getTagName());
+		if (prev != null) {
+			ft.remove(prev);
+		}
+		ft.addToBackStack(null);
+
+		// Create and show the dialog.
+		RunDialogFragment newFragment = RunDialogFragment.newInstance();
+		newFragment.setRunCreationListener(this);
+		newFragment.show(ft, RunDialogFragment.getTagName());
+		getSupportFragmentManager().executePendingTransactions();
+
+		newFragment.sizeDialog();
+
+		// TODO (subha) : the title should be colored
+		newFragment.setDialogTitle("Add a new run.");
 	}
-	
-
 
 	public boolean getRunsCache() throws UserRecoverableAuthIOException,
 			IOException {
@@ -402,7 +404,7 @@ public class RunsActivity extends FragmentActivity implements RunCreationListene
 		}
 		return ID;
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();

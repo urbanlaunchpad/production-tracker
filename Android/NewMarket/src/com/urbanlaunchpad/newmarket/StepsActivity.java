@@ -25,6 +25,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.services.fusiontables.Fusiontables;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
+import com.urbanlaunchpad.newmarket.helpers.CustomActionBarHelper;
 import com.urbanlaunchpad.newmarket.model.Step;
 
 public class StepsActivity extends FragmentActivity implements
@@ -49,11 +50,9 @@ public class StepsActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_steps);
-
-		// Custom color ActionBar
-		ActionBar ab = getActionBar();
-		ab.setBackgroundDrawable(getResources().getDrawable(
-				R.color.orange_background));
+		
+		// Custom ActionBar
+		CustomActionBarHelper.customizeActionBar(this, this);
 
 		runID = (String) this.getIntent()
 				.getStringExtra(RunsActivity.ARG_RUNID);

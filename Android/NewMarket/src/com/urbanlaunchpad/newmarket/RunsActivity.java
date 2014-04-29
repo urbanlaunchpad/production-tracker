@@ -28,11 +28,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.fusiontables.Fusiontables;
 import com.google.api.services.fusiontables.Fusiontables.Query.Sql;
 import com.google.api.services.fusiontables.model.Sqlresponse;
+import com.urbanlaunchpad.newmarket.helpers.CustomActionBarHelper;
+import com.urbanlaunchpad.newmarket.helpers.typefaceHelper;
 import com.urbanlaunchpad.newmarket.model.Run;
 
 public class RunsActivity extends FragmentActivity implements RunCreationListener {
@@ -72,11 +75,9 @@ public class RunsActivity extends FragmentActivity implements RunCreationListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		// Custom color ActionBar
-		ActionBar ab = getActionBar();
-		ab.setBackgroundDrawable(getResources().getDrawable(
-				R.color.orange_background));
+	
+		// Custom action bar
+		CustomActionBarHelper.customizeActionBar(this,this);
 
 		// Timezones adjusting for date format.
 		uTC_SimpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
